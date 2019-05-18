@@ -10,6 +10,7 @@ class Route
     puts "#{last_station.station} - Конечная остановка"
     @inc = 1
     @number = 0
+    @last_station = last_station
   end
 
   def add_station(station)
@@ -37,6 +38,10 @@ class Route
     # puts "Станция под номером #{number}"
     @@stations[number]
   end
+
+  def last_station
+    @last_station
+  end
 end
 
 ########################################################################################################################
@@ -49,10 +54,10 @@ class Train
   def initialize(number, type, quantity_carriage)
     @number = number
 
-    if type == true
-      @type = "Пассажирский"
-    else
-      @type = "Грузовой"
+    if type == 'pas'
+      @type = 'pas'
+    elsif type == 'carg'
+      @type = 'carg'
     end
 
     @quantity_carriage = quantity_carriage
@@ -71,7 +76,7 @@ class Train
 
   def speed_up
     @speed += 5
-    puts "Скорость поезда увеличилась на 5 км/ч = #{@speed} км/ч"
+    puts "Скорость поезда увеличилась = #{@speed} км/ч"
   end
 
   def stop
@@ -120,10 +125,15 @@ class Train
   end
 
   def up_station
-    @current_station = @route.stations(@inc + 1)
-    @inc += 1
-    @current_station.add_train(self)
-    puts "Поезд прибыл на станцию: #{@current_station.station}"
+    if @current_station == @route.last_station
+      puts "Это конечная станция"
+    else
+      @current_station = @route.stations(@inc + 1)
+      @inc += 1
+      @current_station.add_train(self)
+      puts "Поезд прибыл на станцию: #{@current_station.station}"
+    end
+
   end
 
   def next_station
@@ -168,15 +178,24 @@ class Station
   end
 
   def all_trains
+    @pas = 0
+    @carg = 0
     if @trains.count != nil
-      puts "На станции #{@station} сейчас находится поездов: #{@trains.count}"
+      @trains.each do |train|
+        if train.type_train == 'pas'
+          @pas += 1
+        elsif train.type_train == 'carg'
+          @carg += 1
+        end
+      end
+      puts "На станции #{@station} сейчас находится поездов: #{@trains.count}, Пассажирских: #{@pas}, Грузовых #{@carg}"
     else
       puts "На станции нет поездов"
     end
   end
 
   def leave_train
-    puts "#{@trains[0].type_train} поезд №#{@trains[0].number_train} отправился на следующую станцию"
+    # puts "#{@trains[0].type_train} поезд №#{@trains[0].number_train} отправился на следующую станцию"
     @trains[0].up_station
     @trains.shift
   end
