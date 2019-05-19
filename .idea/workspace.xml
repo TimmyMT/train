@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5ea1833a-66aa-4af9-ae47-bcdf0d815a23" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lesson_4" beforeDir="false" afterPath="$PROJECT_DIR$/lesson_4" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lesson_4/route.rb" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/lesson_4/station.rb" beforeDir="false" />
@@ -18,7 +17,7 @@
     <session id="-865800409">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="1" />
+          <entry key="project.closed" value="2" />
           <entry key="project.open.time.3" value="1" />
           <entry key="project.open.time.36" value="1" />
           <entry key="project.opened" value="2" />
@@ -69,8 +68,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/train.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="690">
-              <caret line="94" column="13" lean-forward="true" selection-start-line="94" selection-start-column="13" selection-end-line="94" selection-end-column="13" />
+            <state relative-caret-position="1065">
+              <caret line="101" column="4" selection-start-line="101" selection-start-column="4" selection-end-line="101" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -174,12 +173,12 @@
       <option name="presentableId" value="Default" />
       <updated>1558190840750</updated>
       <workItem from="1558190842718" duration="24405000" />
-      <workItem from="1558258315205" duration="2267000" />
+      <workItem from="1558258315205" duration="2476000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26672000" />
+    <option name="totallyTimeSpent" value="26881000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -192,7 +191,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="64" y="-11" width="1303" height="780" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19521913" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -266,8 +264,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/train.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="690">
-          <caret line="94" column="13" lean-forward="true" selection-start-line="94" selection-start-column="13" selection-end-line="94" selection-end-column="13" />
+        <state relative-caret-position="1065">
+          <caret line="101" column="4" selection-start-line="101" selection-start-column="4" selection-end-line="101" selection-end-column="4" />
         </state>
       </provider>
     </entry>
