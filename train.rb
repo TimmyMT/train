@@ -58,6 +58,7 @@ class Train
     @route = name
     @current_station = @route.stations(@current_number)
     @current_station.add_train(self)
+
     puts "Поезд #{@number} готовится к отправке из станции #{@current_station.station} по маршруту #{@route}"
   end
 
