@@ -11,16 +11,10 @@ class Train
       @type = 'pas'
     end
 
-    # if type == 'pas'
-    #   @type = 'pas'
-    # elsif type == 'carg'
-    #   @type = 'carg'
-    # end
-
     @quantity_carriage = quantity_carriage
     @speed = 0
-    @route = 0
-    puts "Создан поезд №#{@number}, тип: #{@type}, количество вагонов: #{@quantity_carriage}"
+
+    puts "Из ангара выкатили #{@type} поезд под номером #{@number} количество вагонов #{@quantity_carriage}"
   end
 
   def number
@@ -31,23 +25,20 @@ class Train
     @type
   end
 
-  def speed_up
-    @speed += 5
-    puts "Скорость поезда увеличилась = #{@speed} км/ч"
-  end
-
-  def stop
-    @speed = 0
-    puts "Остановка"
+  def quantity_carriage
+    @quantity_carriage
   end
 
   def speed
     @speed
-    puts "Текущая скорость поезда #{@speed} км/ч"
   end
 
-  def quantity_carriage
-    @quantity_carriage
+  def speed_up
+    @speed += 5
+  end
+
+  def stop
+    @speed = 0
   end
 
   def change_quantity_carriage(value)
@@ -63,16 +54,15 @@ class Train
   end
 
   def route(name)
+    @current_number = 0
     @route = name
-    @inc = 0
-    @current_station = @route.stations(@inc)
+    @current_station = @route.stations(@current_number)
     @current_station.add_train(self)
-    puts "Для поезда №#{@number} установлен маршрут, поезд прибыл на станцию отправления #{@current_station.station}"
+    puts "Поезд #{@number} готовится к отправке из станции #{@current_station.station} по маршруту #{@route}"
   end
 
   def current_route
     @route
-    puts "Текущий маршрут поезда #{@route}"
   end
 
   def current_station
@@ -81,28 +71,29 @@ class Train
 
   def up_station
     if @current_station == @route.last_station
-      puts "Это конечная станция"
+      puts "Конечная станция"
     else
-      @inc += 1
-      @current_station = @route.stations(@inc)
+      @current_number += 1
+      @current_station = @route.stations(@current_number)
       @current_station.add_train(self)
-      puts "Поезд прибыл на станцию: #{@current_station.station}"
     end
-
   end
 
   def next_station
-    @route.stations(@inc + 1)
+    @route.stations(@current_number + 1)
   end
 
   def down_station
-    @inc -= 1
-    @current_station = @route.stations(@inc)
-    @current_station.add_train(self)
-    puts "Поезд вернулся на предидущую на станцию: #{@current_station.station}"
+    if @current_station == @route.last_station
+      puts "Отправная станция"
+    else
+      @current_number -= 1
+      @current_station = @route.stations(@current_number)
+      @current_station.add_train(self)
+    end
   end
 
-  def previous_station
-    @route.stations(@inc - 1)
+  def prev_station
+    @route.stations(@current_number - 1)
   end
 end
