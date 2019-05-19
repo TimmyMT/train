@@ -4,11 +4,18 @@ class Train
   def initialize(number, type, quantity_carriage)
     @number = number
 
-    if type == 'pas'
-      @type = 'pas'
-    elsif type == 'carg'
+    case type
+    when 0
       @type = 'carg'
+    when 1
+      @type = 'pas'
     end
+
+    # if type == 'pas'
+    #   @type = 'pas'
+    # elsif type == 'carg'
+    #   @type = 'carg'
+    # end
 
     @quantity_carriage = quantity_carriage
     @speed = 0

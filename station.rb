@@ -31,9 +31,9 @@ class Station
           @carg += 1
         end
       end
-      puts "На станции #{@station} сейчас находится поездов: #{@trains.count}, Пассажирских: #{@pas}, Грузовых #{@carg}"
+      puts "На станции #{@station} сейчас находится поездов: #{@trains.count}, Пассажирских: #{@pas}, Грузовых: #{@carg}"
     else
-      puts "На станции нет поездов"
+      puts "На станции #{@station} нет поездов"
     end
   end
 
