@@ -1,43 +1,35 @@
 class Route
-  @@stations = []
   attr_reader :trains, :stations
+  @stations = []
 
-  def initialize(first_station, last_station)
-    @@stations[0] = first_station
-    @@stations[1] = last_station
-    puts "Создан маршрут: #{first_station.station} - Пункт отправления"
-    puts "#{last_station.station} - Конечная остановка"
-    @inc = 1
-    @number = 0
-    @last_station = last_station
+  def initialize(first_st, last_st)
+    @stations = [first_st, last_st]
+    @last_st = @stations.last
+
+    puts "Создан маршрут #{first_st.station} - #{last_st.station}"
   end
 
-  def add_station(station)
-    @@stations[@inc + 1] = @@stations[@inc]
-    @@stations[@inc] = station
+  def add_st(station)
+    last_st = @last_st
+    @stations[@stations.count - 1] = station
+    @stations << last_st
     puts "В маршрут добавлена станция #{station.station}"
-    @inc += 1
   end
 
-  def delete_station
-    if @@stations.count > 2
-      @@stations.delete_at(1)
-      puts "Станция #{@@stations[1].station} удалена из маршрута"
-    end
+  def delete_st
+    @stations.delete_at(@stations.count - 2) if @stations.count > 2
+    puts "Из маршрута удалена станция #{@stations[stations.count - 2].station}"
   end
 
   def all_stations
-    puts "Список всех станций маршрута: "
-    @@stations.each do |s|
-      puts "#{s.station}"
-    end
+    @stations
   end
 
   def stations(number)
-    @@stations[number]
+    @stations[number]
   end
 
   def last_station
-    @last_station
+    @last_st
   end
 end
