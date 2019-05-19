@@ -1,10 +1,11 @@
 class Station
   attr_reader :trains, :routes
+  @trains = []
 
   def initialize(name)
     @station = name
     @trains = []
-    puts "Создана станция #{@station}"
+    puts "Построена станция #{@station}"
   end
 
   def station
@@ -13,21 +14,21 @@ class Station
 
   def add_train(name)
     @trains << name
+    puts "На станцию #{@station} прибыл поезд #{name.number}"
   end
 
   def all_trains
-    
-    if @trains.count
-      @pas = @trains.count {|train| train.type == 'pas'}
-      @carg = @trains.count {|train| train.type == 'carg'}
-      puts "На станции #{@station} сейчас находится поездов: #{@trains.count}, Пассажирских: #{@pas}, Грузовых: #{@carg}"
-    else
-      puts "На станции #{@station} нет поездов"
-    end
+    @pas = @trains.count {|train| train.type == 'pas'}
+    @carg = @trains.count {|train| train.type == 'carg'}
+    puts "На станции #{@station} сейчас находится поездов: #{@trains.count}, Пассажирских: #{@pas}, Грузовых: #{@carg}"
   end
 
   def leave_train
     @trains[0].up_station
     @trains.shift if @trains[0].next_station != nil
+  end
+
+  def trains
+    @trains
   end
 end
