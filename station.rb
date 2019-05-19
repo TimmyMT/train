@@ -16,21 +16,10 @@ class Station
   end
 
   def all_trains
-    @pas = 0
-    @carg = 0
-
-    # @trains.count {|train| train.type == 'pas'; @pas += 1}
-    # @trains.count {|train| train.type == 'carg'; @carg += 1}
-    # не работает
-
-    if @trains.count != nil
-      @trains.each do |train|
-        if train.type == 'pas'
-          @pas += 1
-        elsif train.type == 'carg'
-          @carg += 1
-        end
-      end
+    
+    if @trains.count
+      @pas = @trains.count {|train| train.type == 'pas'}
+      @carg = @trains.count {|train| train.type == 'carg'}
       puts "На станции #{@station} сейчас находится поездов: #{@trains.count}, Пассажирских: #{@pas}, Грузовых: #{@carg}"
     else
       puts "На станции #{@station} нет поездов"
@@ -38,7 +27,6 @@ class Station
   end
 
   def leave_train
-    # puts "#{@trains[0].type_train} поезд №#{@trains[0].number_train} отправился на следующую станцию"
     @trains[0].up_station
     @trains.shift if @trains[0].next_station != nil
   end

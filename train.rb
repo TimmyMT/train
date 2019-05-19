@@ -76,7 +76,6 @@ class Train
   end
 
   def current_station
-    # puts "Текущая станция #{@current_station.station}"
     @current_station
   end
 
@@ -93,7 +92,6 @@ class Train
   end
 
   def next_station
-    # puts "Следующая станция #{@route.stations(@inc + 1)}"
     @route.stations(@inc + 1)
   end
 
@@ -106,6 +104,5 @@ class Train
 
   def previous_station
     @route.stations(@inc - 1)
-    # puts "Предидущая станция #{@route.stations(@inc + 1)}"
   end
 end

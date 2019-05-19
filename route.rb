@@ -34,7 +34,6 @@ class Route
   end
 
   def stations(number)
-    # puts "Станция под номером #{number}"
     @@stations[number]
   end
 
