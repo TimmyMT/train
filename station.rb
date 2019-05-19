@@ -18,8 +18,11 @@ class Station
   def all_trains
     @pas = 0
     @carg = 0
+
     # @trains.count {|train| train.type == 'pas'; @pas += 1}
     # @trains.count {|train| train.type == 'carg'; @carg += 1}
+    # не работает
+
     if @trains.count != nil
       @trains.each do |train|
         if train.type == 'pas'
