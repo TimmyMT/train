@@ -2,23 +2,25 @@ class Route
   attr_reader :trains, :stations
   @stations = []
 
-  def initialize(first_st, last_st)
-    @stations = [first_st, last_st]
-    @last_st = @stations.last
+  def initialize(first_station, last_station)
+    @stations = [first_station, last_station]
+    # @last_st = @stations.last
 
-    puts "Создан маршрут #{first_st.station} - #{last_st.station}"
+    puts "Создан маршрут #{first_station.station} - #{last_station.station}"
   end
 
-  def add_st(station)
-    last_st = @last_st
-    @stations[@stations.count - 1] = station
-    @stations << last_st
+  def add_station(station)
+    # last_station = @stations.last
+    # @stations[@stations.count - 1] = station
+    # @stations << last_station
+    # сортировка
+    @stations.insert(1, station)
 
     puts "В маршрут добавлена станция #{station.station}"
   end
 
-  def delete_st
-    @stations.delete_at(@stations.count - 2) if @stations.count > 2
+  def delete_station
+    @stations.delete_at(1) if @stations.count > 2
 
     puts "Из маршрута удалена станция #{@stations[stations.count - 2].station}"
   end
@@ -32,6 +34,6 @@ class Route
   end
 
   def last_station
-    @last_st
+    @stations.last
   end
 end

@@ -1,5 +1,6 @@
 class Train
   attr_reader :routes, :stations
+  attr_reader :number, :type, :quantity_carriage, :speed
 
   def initialize(number, type, quantity_carriage)
     @number = number
@@ -17,21 +18,21 @@ class Train
     puts "Из ангара выкатили #{@type} поезд под номером #{@number} количество вагонов #{@quantity_carriage}"
   end
 
-  def number
-    @number
-  end
-
-  def type
-    @type
-  end
-
-  def quantity_carriage
-    @quantity_carriage
-  end
-
-  def speed
-    @speed
-  end
+  # def number
+  #   @number
+  # end
+  #
+  # def type
+  #   @type
+  # end
+  #
+  # def quantity_carriage
+  #   @quantity_carriage
+  # end
+  #
+  # def speed
+  #   @speed
+  # end
 
   def speed_up
     @speed += 5
