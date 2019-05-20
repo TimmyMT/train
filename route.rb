@@ -10,10 +10,7 @@ class Route
   end
 
   def add_station(station)
-    # last_station = @stations.last
-    # @stations[@stations.count - 1] = station
-    # @stations << last_station
-    # сортировка
+    # some_array.insert(index, value) - добавить элемент в массив
     @stations.insert(1, station)
 
     puts "В маршрут добавлена станция #{station.station}"
