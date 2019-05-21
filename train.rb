@@ -5,7 +5,7 @@ class Train
 
   def initialize
     @speed = 0
-    @carriages[0] = 0
+    @carriages = []
   end
 
   def speed_up
