@@ -1,38 +1,12 @@
 class Train
-  attr_reader :routes, :stations
-  attr_reader :number, :type, :quantity_carriage, :speed
+  attr_reader :routes, :stations, :carriages
+  attr_reader :type, :speed
+  @carriages = []
 
-  def initialize(number, type, quantity_carriage)
-    @number = number
-
-    case type
-    when 0
-      @type = 'carg'
-    when 1
-      @type = 'pas'
-    end
-
-    @quantity_carriage = quantity_carriage
+  def initialize
     @speed = 0
-
-    puts "Из ангара выкатили #{@type} поезд под номером #{@number} количество вагонов #{@quantity_carriage}"
+    @carriages[0] = 0
   end
-
-  # def number
-  #   @number
-  # end
-  #
-  # def type
-  #   @type
-  # end
-  #
-  # def quantity_carriage
-  #   @quantity_carriage
-  # end
-  #
-  # def speed
-  #   @speed
-  # end
 
   def speed_up
     @speed += 5
@@ -42,16 +16,30 @@ class Train
     @speed = 0
   end
 
-  def change_quantity_carriage(value)
-    if value == '+' and @speed == 0
-      @quantity_carriage += 1
-      puts "Вагон пристыкован"
-    elsif value == '-' and @speed == 0
-      @quantity_carriage -= 1
+  def add_carriage(carriage)
+    if @speed == 0
+      if @type == carriage.type
+        @carriages << carriage
+        puts "Вагон пристыкован"
+      else
+        puts "Вагон не подходит"
+      end
+    else
+      puts "Остановите поезд чтобы пристыковать вагон"
+    end
+  end
+
+  def delete_carriage
+    if @speed == 0
+      @carriages.pop
       puts "Вагон отстыкован"
     else
-      puts 'Поезд всё ещё движется, чтобы прицепить/отцепить вагон потребуется полная остановка'
+      puts "Остановите поезд чтобы отстыковать вагон"
     end
+  end
+
+  def all_carriages
+    @carriages
   end
 
   def route(name)
@@ -98,4 +86,42 @@ class Train
   def prev_station
     @route.stations(@current_number - 1)
   end
+end
+
+########################################################################################################################
+
+class PassengerTrain < Train
+
+  attr_accessor :speed, :type, :carriages
+
+  def initialize
+    @carriages = []
+    @speed = 0
+    @type = 1
+    puts "Из ангара выкатили пассажирский поезд #{self}"
+  end
+
+  def type
+    @type
+  end
+
+end
+
+########################################################################################################################
+
+class CargoTrain < Train
+
+  attr_accessor :speed, :type, :carriages
+
+  def initialize
+    @carriages = []
+    @speed = 0
+    @type = 0
+    puts "Из ангара выкатили грузовой поезд #{self}"
+  end
+
+  def type
+    @type
+  end
+
 end
