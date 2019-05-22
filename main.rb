@@ -93,10 +93,10 @@ until action == 'выйти' do
     puts "Введите название станции которая должна отправить поезд"
     name_station = gets.chomp
     station = user_stations[name_station]
-    if station.trains[0].current_station != station.trains[0].current_route.last_station
-      station.leave_train
-    else
+    if station.trains[0].current_station == station.trains[0].current_route.last_station
       puts "Это конечная станция"
+    else
+      station.leave_train
     end
 
 
@@ -104,7 +104,11 @@ until action == 'выйти' do
     puts "Введите название поезда который нужно вернуть"
     name_train = gets.chomp
     train = user_trains[name_train]
-    train.down_station
+    if train.current_station == train.current_route.stations(0)
+      puts "Это начальная станция"
+    else
+      train.down_station
+    end
 
   elsif action == 'посмотреть список поездов на станции'
     puts "Введите название станции"
