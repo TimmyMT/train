@@ -1,6 +1,6 @@
 class Train
   attr_reader :routes, :stations, :carriages
-  attr_reader :type, :speed
+  attr_accessor :type, :speed
   @carriages = []
 
   def initialize
@@ -86,42 +86,4 @@ class Train
   def prev_station
     @route.stations(@current_number - 1)
   end
-end
-
-########################################################################################################################
-
-class PassengerTrain < Train
-
-  attr_accessor :speed, :type, :carriages
-
-  def initialize
-    @carriages = []
-    @speed = 0
-    @type = 1
-    puts "Train created of type passenger: #{self}"
-  end
-
-  def type
-    @type
-  end
-
-end
-
-########################################################################################################################
-
-class CargoTrain < Train
-
-  attr_accessor :speed, :type, :carriages
-
-  def initialize
-    @carriages = []
-    @speed = 0
-    @type = 0
-    puts "Train created of type cargo: #{self}"
-  end
-
-  def type
-    @type
-  end
-
 end

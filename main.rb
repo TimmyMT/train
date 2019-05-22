@@ -2,6 +2,8 @@ require_relative './route.rb'
 require_relative './station.rb'
 require_relative './train.rb'
 require_relative './carriage.rb'
+require_relative './cargo_train'
+require_relative './passenger_train'
 
 
 user_stations = {}
@@ -61,7 +63,7 @@ until action == 15 do
   when 8
     puts "Enther the type of train passenger/cargo"
     type_train = gets.chomp
-    puts "Enter th name of train"
+    puts "Enter the name of train"
     name = gets.chomp
     user_trains[name] = PassengerTrain.new if type_train == 'passenger'
     user_trains[name] = CargoTrain.new if type_train == 'cargo'
@@ -99,8 +101,6 @@ until action == 15 do
 
   when 14
     print instructions
-
-  when 16
 
   end
 
