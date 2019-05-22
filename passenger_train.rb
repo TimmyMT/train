@@ -9,8 +9,4 @@ class PassengerTrain < Train
     puts "Train created of type passenger: #{self}"
   end
 
-  def type
-    @type
-  end
-
 end

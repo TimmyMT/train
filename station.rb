@@ -32,7 +32,4 @@ class Station
     # if @trains[0].next_station != nil
   end
 
-  def trains
-    @trains
-  end
 end

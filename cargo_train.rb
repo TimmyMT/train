@@ -9,8 +9,4 @@ class CargoTrain < Train
     puts "Train created of type cargo: #{self}"
   end
 
-  def type
-    @type
-  end
-
 end
