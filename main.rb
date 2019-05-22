@@ -35,10 +35,14 @@ until action == 15 do
   when 4
     puts "Enter the name station for leave train"
     name_station = gets.chomp
-    if user_stations[name_station].trains[0].current_station == user_stations[name_station].trains[0].current_route.last_station
-      puts "This is a last station"
+    if user_stations.key?(name_station)
+      if user_stations[name_station].trains[0].current_station == user_stations[name_station].trains[0].current_route.last_station
+        puts "This is a last station"
+      else
+        user_stations[name_station].leave_train
+      end
     else
-      user_stations[name_station].leave_train
+      puts "Something wrong"
     end
 
   when 5
@@ -48,7 +52,11 @@ until action == 15 do
     name_station_first = gets.chomp
     puts "Enter the name of last station"
     name_station_last = gets.chomp
-    user_routes[name_route] = Route.new(user_stations[name_station_first], user_stations[name_station_last])
+    if user_stations.key?(name_station_first) and user_stations.key?(name_station_last)
+      user_routes[name_route] = Route.new(user_stations[name_station_first], user_stations[name_station_last])
+    else
+      puts "Something wrong"
+    end
 
   when 6
     user_routes.each {|key, value| puts "#{key} => #{value}" }
@@ -58,7 +66,11 @@ until action == 15 do
     name_route = gets.chomp
     puts "Enter the name station for add in route"
     name_station = gets.chomp
-    user_routes[name_route].add_station(user_stations[name_station])
+    if user_routes.key?(name_route) and user_stations.key?(name_station)
+      user_routes[name_route].add_station(user_stations[name_station])
+    else
+      puts "Something wrong"
+    end
 
   when 8
     puts "Enther the type of train passenger/cargo"
@@ -76,31 +88,48 @@ until action == 15 do
     name_train = gets.chomp
     puts "Enter the name route shoose for train"
     name_route = gets.chomp
-    user_trains[name_train].route(user_routes[name_route])
+    if user_trains.key?(name_train) and user_routes.key?(name_route)
+      user_trains[name_train].route(user_routes[name_route])
+    else
+      puts "Something wrong"
+    end
 
   when 11
     puts "Enter the name of train for add carriage"
     name_train = gets.chomp
-    current_carriage = Carriage.new(user_trains[name_train].type)
-    user_trains[name_train].add_carriage(current_carriage)
-    user_carriages << current_carriage
+    if user_trains.key?(name_train)
+      current_carriage = Carriage.new(user_trains[name_train].type)
+      user_trains[name_train].add_carriage(current_carriage)
+      # user_carriages << current_carriage
+    end
 
   when 12
     puts "Enter the name train for delete carriage"
     name_train = gets.chomp
-    user_trains[name_train].delete_carriage
+    if user_trains.key?(name_train)
+      user_trains[name_train].delete_carriage
+    else
+      puts "Something wrong"
+    end
 
   when 13
     puts "Enter the name train for comeback"
     name_train = gets.chomp
-    if user_trains[name_train].current_station == train.current_route.stations(0)
-      puts "This is a firs station"
+    if user_trains.key?(name_train)
+      if user_trains[name_train].current_station == train.current_route.stations(0)
+        puts "This is a firs station"
+      else
+        user_trains[name_train].down_station
+      end
     else
-      user_trains[name_train].down_station
+      puts "Something wrong"
     end
 
   when 14
     print instructions
+
+  else
+    puts "Something wrong"
 
   end
 
