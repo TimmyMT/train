@@ -20,21 +20,21 @@ class Train
     if @speed == 0
       if @type == carriage.type
         @carriages << carriage
-        puts "Вагон пристыкован"
+        puts "carriage docked"
       else
-        puts "Вагон не подходит"
+        puts "carriage does not fit"
       end
     else
-      puts "Остановите поезд чтобы пристыковать вагон"
+      puts "stop the train to dock the carriage"
     end
   end
 
   def delete_carriage
     if @speed == 0
       @carriages.pop
-      puts "Вагон отстыкован"
+      puts "carriage undocked"
     else
-      puts "Остановите поезд чтобы отстыковать вагон"
+      puts "stop the train to undock the carriage"
     end
   end
 
@@ -48,7 +48,7 @@ class Train
     @current_station = @route.stations(@current_number)
     @current_station.add_train(self)
 
-    puts "Поезд #{@number} готовится к отправке из станции #{@current_station.station} по маршруту #{@route}"
+    puts "the train #{self} is ready to be shipped from the station #{@current_station.station} on route #{@route}"
   end
 
   def current_route
@@ -61,7 +61,7 @@ class Train
 
   def up_station
     if @current_station == @route.last_station
-      puts "Конечная станция"
+      puts "Last station"
     else
       @current_number += 1
       @current_station = @route.stations(@current_number)
@@ -75,7 +75,7 @@ class Train
 
   def down_station
     if @current_station == @route.last_station
-      puts "Отправная станция"
+      puts "First station"
     else
       @current_number -= 1
       @current_station = @route.stations(@current_number)
@@ -98,7 +98,7 @@ class PassengerTrain < Train
     @carriages = []
     @speed = 0
     @type = 1
-    puts "Из ангара выкатили пассажирский поезд #{self}"
+    puts "Train created of type passenger: #{self}"
   end
 
   def type
@@ -117,7 +117,7 @@ class CargoTrain < Train
     @carriages = []
     @speed = 0
     @type = 0
-    puts "Из ангара выкатили грузовой поезд #{self}"
+    puts "Train created of type cargo: #{self}"
   end
 
   def type

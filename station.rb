@@ -6,7 +6,7 @@ class Station
     @station = name
     @trains = []
 
-    puts "Построена станция #{@station}"
+    puts "Station created #{@station}"
   end
 
   def station
@@ -16,14 +16,14 @@ class Station
   def add_train(name)
     @trains << name
 
-    puts "На станцию #{@station} прибыл поезд #{name}"
+    puts "a train #{name} arrived at the station #{@station}"
   end
 
   def all_trains
     @pas = @trains.count {|train| train.type == 1}
     @carg = @trains.count {|train| train.type == 0}
 
-    puts "На станции #{@station} сейчас находится поездов: #{@trains.count}, Пассажирских: #{@pas}, Грузовых: #{@carg}"
+    puts "the station #{@station} now has #{@trains.count} trains: , Passenger: #{@pas}, Cargo: #{@carg}"
   end
 
   def leave_train
