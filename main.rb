@@ -7,10 +7,14 @@ require_relative './carriage.rb'
 user_stations = {}
 user_trains = {}
 user_routes = {}
+user_carriages = []
 
 puts "Управление поездами"
-puts "Выберите действие (создать станцию, создать поезд, посмотреть список станций, посмотреть список поездов, выйти)"
-puts "(посмотреть список маршрутов, дополнить маршрут)"
+puts "Выберите действие:"
+puts "создать станцию, создать поезд, посмотреть список станций, посмотреть список поездов, выйти"
+puts "посмотреть список маршрутов, создать маршрут, назначить маршрут поезду, дополнить маршрут"
+puts "добавить вагон к поезду, отцепить вагон от поезда, отправить поезд, вернуть поезд на предидущую станцию"
+puts "посмотреть список поездов на станции"
 action = gets.chomp
 
 until action == 'выйти' do
@@ -63,6 +67,51 @@ until action == 'выйти' do
     route = user_routes[name_route]
     route.add_station(user_stations[name_station])
 
+  elsif action == 'назначить маршрут поезду'
+    puts "Введите название поезда который хотите отправить по маршруту"
+    name_train = gets.chomp
+    puts "Введите название маршрута"
+    name_route = gets.chomp
+    train = user_trains[name_train]
+    train.route(user_routes[name_route])
+
+  elsif action == 'добавить вагон к поезду'
+    puts "Введите название поезда к которому хотите добавить вагон"
+    name_train = gets.chomp
+    train = user_trains[name_train]
+    current_carriage = Carriage.new(train.type)
+    train.add_carriage(current_carriage)
+    user_carriages << current_carriage
+
+  elsif action == 'отцепить вагон от поезда'
+    puts "Введите название поезда к которому хотите добавить вагон"
+    name_train = gets.chomp
+    train = user_trains[name_train]
+    train.delete_carriage
+
+  elsif action == 'отправить поезд'
+    puts "Введите название станции которая должна отправить поезд"
+    name_station = gets.chomp
+    station = user_stations[name_station]
+    if station.trains[0].current_station != station.trains[0].current_route.last_station
+      station.leave_train
+    else
+      puts "Это конечная станция"
+    end
+
+
+  elsif action == 'вернуть поезд на предидущую станцию'
+    puts "Введите название поезда который нужно вернуть"
+    name_train = gets.chomp
+    train = user_trains[name_train]
+    train.down_station
+
+  elsif action == 'посмотреть список поездов на станции'
+    puts "Введите название станции"
+    name_station = gets.chomp
+    station = user_stations[name_station]
+    station.all_trains
+
   end
 
   puts "Выберите действие (создать станцию, создать поезд, посмотреть список станций, посмотреть список поездов, выйти)"
@@ -72,10 +121,4 @@ end
 
 exit
 
-# Назначить маршрут поезду
-# Добавить вагон к поезду
-# Отцепить вагон от поезда
-# Отправить поезд
- # Вернуть поезд на предыдущую станцию
-# Посмотреть список станций
  # Посмотреть список поездов на станции
