@@ -1,0 +1,8 @@
+load './company.rb'
+load './ob_quantity.rb'
+load './route.rb'
+load './station.rb'
+load './train.rb'
+load './carriage.rb'
+load './cargo_train.rb'
+load './passenger_train.rb'

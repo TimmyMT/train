@@ -1,11 +1,23 @@
 class Station
+  include ObQuan
+
   attr_reader :trains, :routes
   @trains = []
+  @@stations = []
+
+  def self.stations
+    @@stations
+  end
+
+  def self.count
+    @@stations.count
+  end
 
   def initialize(name)
     @station = name
     @trains = []
-
+    @@stations << self
+    # inc_obj
     puts "Station created #{@station}"
   end
 

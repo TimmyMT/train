@@ -1,11 +1,18 @@
 class Route
+  include ObQuan
+
   attr_reader :trains, :stations
   @stations = []
+  @@routes = []
+
+  def self.count
+    @@routes.count
+  end
 
   def initialize(first_station, last_station)
     @stations = [first_station, last_station]
-    # @last_st = @stations.last
-
+    @@routes << self
+    # inc_obj
     puts "Route created #{first_station.station} - #{last_station.station}"
   end
 

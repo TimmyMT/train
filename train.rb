@@ -1,11 +1,27 @@
 class Train
-  attr_reader :routes, :stations, :carriages
-  attr_accessor :type, :speed
-  @carriages = []
+  include Company
+  include ObQuan
 
-  def initialize
+  attr_reader :routes, :stations, :carriages
+  attr_accessor :type, :speed, :number, :trains, :quantity
+
+  @carriages = []
+  @@trains = {}
+
+  def self.find(number)
+    @@trains[number]
+  end
+
+  def self.count
+    @@trains.count
+  end
+
+  def initialize(number)
     @speed = 0
     @carriages = []
+    @number = number
+    @@trains[number] = self
+    # inc_obj
   end
 
   def speed_up
