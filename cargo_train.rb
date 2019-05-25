@@ -1,12 +1,14 @@
 class CargoTrain < Train
 
-  attr_accessor :speed, :type, :carriages
+  attr_accessor :speed, :type, :carriages, :number
 
-  def initialize
+  def initialize(number)
+    @number = number
     @carriages = []
     @speed = 0
     @type = 0
-    puts "Train created of type cargo: #{self}"
+    validate!
+    puts "Train created #{@number}"
   end
 
 end

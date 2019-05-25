@@ -7,8 +7,14 @@ class Train
   attr_reader :routes, :stations, :carriages
   attr_accessor :type, :speed, :number, :trains, :quantity
 
+  NUMBER_FORMAT = /^[a-zA-Z0-9]{1}-*[a-zA-Z0-9]{1}-*[a-zA-Z0-9]{1}$/i
   @carriages = []
   @@trains = {}
+  @number = 0
+
+  def self.trains
+    @@trains
+  end
 
   def self.find(number)
     @@trains[number]
@@ -18,8 +24,16 @@ class Train
     @speed = 0
     @carriages = []
     @number = number
+    validate!
     @@trains[number] = self
     register_instance
+    # puts "Train created #{@number}"
+  end
+
+  def valid?
+    validate!
+  rescue
+    false
   end
 
   def speed_up
@@ -100,4 +114,12 @@ class Train
   def prev_station
     @route.stations(@current_number - 1)
   end
+
+  protected
+
+  def validate!
+    raise "Wrong parameters for number of train" if @number !~ NUMBER_FORMAT
+    true
+  end
+
 end

@@ -4,6 +4,8 @@ class Station
   include InstanceCounter
 
   attr_reader :trains, :routes
+
+  NUMBER_FORMAT = /^[a-zA-Z0-9]{1}-*[a-zA-Z0-9]{1}-*[a-zA-Z0-9]{1}$/i
   @trains = []
   @@stations = []
 
@@ -11,16 +13,19 @@ class Station
     @@stations
   end
 
-  def self.count
-    @@stations.count
-  end
-
   def initialize(name)
     @station = name
+    validate!
     @trains = []
     @@stations << self
     puts "Station created #{@station}"
     register_instance
+  end
+
+  def valid?
+    validate!
+  rescue
+    false
   end
 
   def station
@@ -43,7 +48,13 @@ class Station
   def leave_train
     @trains[0].up_station
     @trains.shift
-    # if @trains[0].next_station != nil
+  end
+
+  protected
+
+  def validate!
+    raise "Wrong parameters for name of station" if @station !~ NUMBER_FORMAT
+    true
   end
 
 end

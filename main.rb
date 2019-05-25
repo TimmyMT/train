@@ -1,15 +1,15 @@
+require_relative './company.rb'
 require_relative './route.rb'
 require_relative './station.rb'
 require_relative './train.rb'
 require_relative './carriage.rb'
-require_relative './cargo_train'
-require_relative './passenger_train'
+require_relative './cargo_train.rb'
+require_relative './passenger_train.rb'
 
 
 user_stations = {}
 user_trains = {}
 user_routes = {}
-# user_carriages = []
 
 instructions = "Run Trains!\nEnter number action or 15 for exit\nStations actions:\n1 # Create station, 2 # Show all stations, 3 # Show all train in station, 4 # Leave train from station\nRoutes actions:\n5 # Create route, 6 # Show all routes, 7 # Add station in route\nTrains actions:\n8 # Create train, 9 # Show all trains, 10 # Shoose a route for train\n11 # Add carriage to train, 12 # Delete carriage from train, 13 # Comeback train to previous station\n"
 
@@ -22,7 +22,14 @@ until action == 15 do
   when 1
     puts "Enter the name Station"
     name = gets.chomp
-    user_stations[name] = Station.new(name)
+    puts "Enter the number Station (3 symbols)"
+    begin
+      number = gets.chomp
+      user_stations[name] = Station.new(number)
+    rescue => e
+      puts "Error: #{e.message}, please try again"
+      retry
+    end
 
   when 2
     user_stations.each {|key, value| puts "#{key} => #{value}" }
@@ -77,8 +84,15 @@ until action == 15 do
     type_train = gets.chomp
     puts "Enter the name of train"
     name = gets.chomp
-    user_trains[name] = PassengerTrain.new if type_train == 'passenger'
-    user_trains[name] = CargoTrain.new if type_train == 'cargo'
+    puts "Enter the 3 symbols for number of train"
+    begin
+      number = gets.chomp
+      user_trains[name] = PassengerTrain.new(number) if type_train == 'passenger'
+      user_trains[name] = CargoTrain.new(number) if type_train == 'cargo'
+    rescue => e
+      puts "Error: #{e.message}, please try again"
+      retry
+    end
 
   when 9
     user_trains.each {|key, value| puts "#{key} => #{value}" }
