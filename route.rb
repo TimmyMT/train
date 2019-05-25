@@ -1,5 +1,7 @@
+require_relative './instance_counter.rb'
+
 class Route
-  include ObQuan
+  include InstanceCounter
 
   attr_reader :trains, :stations
   @stations = []
@@ -12,8 +14,8 @@ class Route
   def initialize(first_station, last_station)
     @stations = [first_station, last_station]
     @@routes << self
-    # inc_obj
     puts "Route created #{first_station.station} - #{last_station.station}"
+    register_instance
   end
 
   def add_station(station)

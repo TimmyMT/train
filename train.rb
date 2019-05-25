@@ -1,6 +1,8 @@
+require_relative './instance_counter.rb'
+
 class Train
   include Company
-  include ObQuan
+  include InstanceCounter
 
   attr_reader :routes, :stations, :carriages
   attr_accessor :type, :speed, :number, :trains, :quantity
@@ -12,16 +14,12 @@ class Train
     @@trains[number]
   end
 
-  def self.count
-    @@trains.count
-  end
-
   def initialize(number)
     @speed = 0
     @carriages = []
     @number = number
     @@trains[number] = self
-    # inc_obj
+    register_instance
   end
 
   def speed_up
