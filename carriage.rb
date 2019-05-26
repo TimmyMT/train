@@ -1,3 +1,5 @@
+require_relative './company.rb'
+
 class Carriage
   include Company
 

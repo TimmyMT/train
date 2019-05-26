@@ -1,4 +1,4 @@
-require_relative './company.rb'
+# require_relative './company.rb'
 require_relative './route.rb'
 require_relative './station.rb'
 require_relative './train.rb'
@@ -19,13 +19,15 @@ action = gets.chomp.to_i
 
 until action == 15 do
   case action
+  # Station actions
   when 1
-    puts "Enter the name Station"
-    name = gets.chomp
-    puts "Enter the number Station (3 symbols)"
+    puts "Enter the number Station"
+    number = gets.chomp
+    puts "Enter the name Station (7 symbols)"
     begin
-      number = gets.chomp
-      user_stations[name] = Station.new(number)
+      name = gets.chomp
+      user_stations[number] = Station.new(name)
+      puts "Station created #{name}"
     rescue => e
       puts "Error: #{e.message}, please try again"
       retry
@@ -52,15 +54,17 @@ until action == 15 do
       puts "Something wrong"
     end
 
+  # Route actions
   when 5
     puts "Enter the name of route"
     name_route = gets.chomp
-    puts "Enter the name of first station"
-    name_station_first = gets.chomp
-    puts "Enter the name of last station"
-    name_station_last = gets.chomp
+    puts "Enter the number of first station"
+    number_station_first = gets.chomp
+    puts "Enter the number of last station"
+    number_station_last = gets.chomp
     if user_stations.key?(name_station_first) and user_stations.key?(name_station_last)
       user_routes[name_route] = Route.new(user_stations[name_station_first], user_stations[name_station_last])
+      puts "Route created #{user_stations[number_station_first]} - #{user_stations[number_station_last]}"
     else
       puts "Something wrong"
     end
@@ -71,14 +75,16 @@ until action == 15 do
   when 7
     puts "Enter the name route for add station"
     name_route = gets.chomp
-    puts "Enter the name station for add in route"
-    name_station = gets.chomp
-    if user_routes.key?(name_route) and user_stations.key?(name_station)
-      user_routes[name_route].add_station(user_stations[name_station])
+    puts "Enter the number station for add in route"
+    number_station = gets.chomp
+    if user_routes.key?(name_route) and user_stations.key?(number_station)
+      user_routes[name_route].add_station(user_stations[number_station])
+      puts "In route added station #{number_station}"
     else
       puts "Something wrong"
     end
 
+  # Train actions
   when 8
     puts "Enther the type of train passenger/cargo"
     type_train = gets.chomp
@@ -104,6 +110,7 @@ until action == 15 do
     name_route = gets.chomp
     if user_trains.key?(name_train) and user_routes.key?(name_route)
       user_trains[name_train].route(user_routes[name_route])
+      puts "the train #{user_trains[name_train]} is ready to be shipped from the station #{user_trains[name_train].current_station.station} on route #{user_routes[name_route]}"
     else
       puts "Something wrong"
     end
@@ -114,7 +121,6 @@ until action == 15 do
     if user_trains.key?(name_train)
       current_carriage = Carriage.new(user_trains[name_train].type)
       user_trains[name_train].add_carriage(current_carriage)
-      # user_carriages << current_carriage
     end
 
   when 12

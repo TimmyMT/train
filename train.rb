@@ -1,8 +1,11 @@
 require_relative './instance_counter.rb'
+require_relative './valid.rb'
+require_relative './company.rb'
 
 class Train
   include Company
   include InstanceCounter
+  include Valid
 
   attr_reader :routes, :stations, :carriages
   attr_accessor :type, :speed, :number, :trains, :quantity
@@ -27,13 +30,6 @@ class Train
     validate!
     @@trains[number] = self
     register_instance
-    # puts "Train created #{@number}"
-  end
-
-  def valid?
-    validate!
-  rescue
-    false
   end
 
   def speed_up
@@ -53,7 +49,7 @@ class Train
         puts "carriage does not fit"
       end
     else
-      puts "stop the train to dock the carriage"
+      puts "stop the train to dock a carriage"
     end
   end
 
@@ -62,7 +58,7 @@ class Train
       @carriages.pop
       puts "carriage undocked"
     else
-      puts "stop the train to undock the carriage"
+      puts "stop the train to undock a carriage"
     end
   end
 
@@ -75,8 +71,6 @@ class Train
     @route = name
     @current_station = @route.stations(@current_number)
     @current_station.add_train(self)
-
-    puts "the train #{self} is ready to be shipped from the station #{@current_station.station} on route #{@route}"
   end
 
   def current_route

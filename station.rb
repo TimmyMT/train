@@ -1,11 +1,13 @@
 require_relative './instance_counter.rb'
+require_relative './valid.rb'
 
 class Station
   include InstanceCounter
+  include Valid
 
   attr_reader :trains, :routes
 
-  NUMBER_FORMAT = /^[a-zA-Z0-9]{1}-*[a-zA-Z0-9]{1}-*[a-zA-Z0-9]{1}$/i
+  NAME_FORMAT = /^[a-zA-Z]{7}[0-9]$/i
   @trains = []
   @@stations = []
 
@@ -18,14 +20,7 @@ class Station
     validate!
     @trains = []
     @@stations << self
-    puts "Station created #{@station}"
     register_instance
-  end
-
-  def valid?
-    validate!
-  rescue
-    false
   end
 
   def station
@@ -34,14 +29,12 @@ class Station
 
   def add_train(name)
     @trains << name
-
     puts "a train #{name} arrived at the station #{@station}"
   end
 
   def all_trains
     @pas = @trains.count {|train| train.type == 1}
     @carg = @trains.count {|train| train.type == 0}
-
     puts "the station #{@station} now has #{@trains.count} trains: , Passenger: #{@pas}, Cargo: #{@carg}"
   end
 
@@ -53,7 +46,7 @@ class Station
   protected
 
   def validate!
-    raise "Wrong parameters for name of station" if @station !~ NUMBER_FORMAT
+    raise "Wrong parameters for name of station (most be 7 symbols)" if @station !~ NAME_FORMAT
     true
   end
 
