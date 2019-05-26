@@ -1,4 +1,5 @@
 require_relative './company.rb'
+require_relative './valid.rb'
 
 class Carriage
   include Company
@@ -16,12 +17,6 @@ class Carriage
       @type = -1
     end
     validate!
-  end
-
-  def valid?
-    validate!
-  rescue
-    false
   end
 
   protected
