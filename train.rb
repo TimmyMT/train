@@ -42,24 +42,12 @@ class Train
 
   def add_carriage(carriage)
     if @speed == 0
-      if @type == carriage.type
-        @carriages << carriage
-        puts "carriage docked"
-      else
-        puts "carriage does not fit"
-      end
-    else
-      puts "stop the train to dock a carriage"
+      @carriages << carriage if @type == carriage.type
     end
   end
 
   def delete_carriage
-    if @speed == 0
-      @carriages.pop
-      puts "carriage undocked"
-    else
-      puts "stop the train to undock a carriage"
-    end
+    @carriages.pop if @speed == 0
   end
 
   def all_carriages
