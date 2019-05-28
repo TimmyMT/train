@@ -1,27 +1,32 @@
 require_relative './company.rb'
+require_relative './train.rb'
 # require_relative './valid.rb'
 
 class CargoCarriage
   include Company
 
-  attr_accessor :type, :volume, :taked_volume, :free_volume
-  attr_reader :trains
+  attr_accessor :type, :volume, :free_volume, :trains
 
   def initialize(volume)
     @volume = volume
-    @taked_volume = 0
     @free_volume = volume
     @type = 0
   end
 
   def take_volume(take)
-    if take <= @volume
-      @taked_volume = take
-      @free_volume -= @taked_volume
+    if take <= @volume and (@free_volume - take) > 0
+      @free_volume -= take
     else
-      puts "This volume more than we have"
+      puts "This volume more than carriage have"
     end
   end
 
+  def clear_volume(clear)
+    if clear <= @volume and (@free_volume + clear) <= @volume
+      @free_volume += clear
+    else
+      puts "This volume more than carriage have"
+    end
+  end
 
 end

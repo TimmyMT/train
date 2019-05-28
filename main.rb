@@ -1,4 +1,3 @@
-# require_relative './company.rb'
 require_relative './route.rb'
 require_relative './station.rb'
 require_relative './train.rb'
@@ -16,6 +15,10 @@ instructions = "Run Trains!\nEnter number action or 15 for exit\nStations action
 print instructions
 print 'Action: '
 action = gets.chomp.to_i
+
+def puts_block
+  yield
+end
 
 until action == 15 do
   case action
@@ -62,8 +65,8 @@ until action == 15 do
     number_station_first = gets.chomp
     puts "Enter the number of last station"
     number_station_last = gets.chomp
-    if user_stations.key?(name_station_first) and user_stations.key?(name_station_last)
-      user_routes[name_route] = Route.new(user_stations[name_station_first], user_stations[name_station_last])
+    if user_stations.key?(number_station_first) and user_stations.key?(number_station_last)
+      user_routes[name_route] = Route.new(user_stations[number_station_first], user_stations[number_station_last])
       puts "Route created #{user_stations[number_station_first]} - #{user_stations[number_station_last]}"
     else
       puts "Something wrong"
@@ -118,17 +121,18 @@ until action == 15 do
   when 11
     puts "Enter the name of train for add carriage"
     name_train = gets.chomp
+    current_carriage = nil
     if user_trains.key?(name_train)
-      if user_trains[name_train].type = 1
+      if user_trains[name_train].type == 1
         puts "How many seats?"
         seats = gets.chomp.to_i
         current_carriage = PassengerCarriage.new(seats)
-        puts "Created seats: #{current_carriage.seats_count}"
-      elsif user_trains[name_train].type = 0
+        puts "Created seats: #{seats}"
+      elsif user_trains[name_train].type == 0
         puts "How many volume?"
         volume = gets.chomp.to_i
         current_carriage = CargoCarriage.new(volume)
-        puts "Created volume: #{current_carriage.volume}"
+        puts "Created volume: #{volume}"
       end
       user_trains[name_train].add_carriage(current_carriage)
     end
@@ -158,10 +162,25 @@ until action == 15 do
   when 14
     print instructions
 
+  # using block for puts trains in station
   when 16
-    puts "Enter the name of train"
+    puts "Enter the name of station"
+    name_station = gets.chomp
+    puts_block { puts user_stations[name_station].trains_block_arr }
+
+  # add train to station
+  when 17
+    puts "Enter name station"
+    name_station = gets.chomp
+    puts "Enter name train"
     name_train = gets.chomp
-    user_trains[name_train].block { puts user_trains[name_train].carriages }
+    user_stations[name_station].add_train(user_trains[name_train])
+
+  # using block for puts carriages in train
+  when 18
+    puts "Enter name train"
+    name_train = gets.chomp
+    puts_block { puts user_trains[name_train].carriages_block_arr }
 
   else
     puts "Something wrong"

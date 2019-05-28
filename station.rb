@@ -1,23 +1,25 @@
 require_relative './instance_counter.rb'
 require_relative './valid.rb'
-require_relative './block.rb'
+# require_relative './block.rb'
 
 class Station
   include InstanceCounter
   include Valid
-  include Block
+  # instance_counter
 
-  attr_accessor :trains, :routes
+  attr_accessor :trains, :routes, :trains_block_arr
 
   NAME_FORMAT = /^[a-zA-Z]{7}[0-9]$/i
   @trains = []
   @@stations = []
+  @trains_block_arr = []
 
   def self.stations
     @@stations
   end
 
   def initialize(name)
+    @trains_block_arr = []
     @station = name
     validate!
     @trains = []
@@ -29,12 +31,9 @@ class Station
     @station
   end
 
-  def block_train(&block)
-    @trains.each { |train| block.call(train) }
-  end
-
   def add_train(name)
     @trains << name
+    @trains_block_arr << "Train number #{name.number}, type #{name.type}"
     puts "a train #{name} arrived at the station #{@station}"
   end
 
@@ -47,6 +46,9 @@ class Station
   def leave_train
     @trains[0].up_station
     @trains.shift
+    unless @trains_block_arr.empty?
+      @trains_block_arr.shift
+    end
   end
 
   protected

@@ -1,21 +1,21 @@
 require_relative './instance_counter.rb'
 require_relative './valid.rb'
 require_relative './company.rb'
-require_relative './block.rb'
 
 class Train
   include Company
   include InstanceCounter
   include Valid
-  include Block
 
   attr_reader :routes, :stations, :carriages
-  attr_accessor :type, :speed, :number, :trains, :quantity
+  attr_accessor :type, :speed, :number, :trains, :carriages_block_arr
 
   NUMBER_FORMAT = /^[a-zA-Z0-9]{1}-*[a-zA-Z0-9]{1}-*[a-zA-Z0-9]{1}$/i
   @carriages = []
   @@trains = {}
   @number = 0
+  @carriages_block_arr = []
+
 
   def self.trains
     @@trains
@@ -28,11 +28,14 @@ class Train
   def initialize(number)
     @speed = 0
     @carriages = []
+    @carriages_block_arr = []
     @number = number
     validate!
     @@trains[number] = self
     register_instance
   end
+
+
 
   def speed_up
     @speed += 5
@@ -45,13 +48,15 @@ class Train
   def add_carriage(carriage)
     if @speed == 0
       @carriages << carriage if @type == carriage.type
+      @carriages_block_arr << "Carriage #{carriage}, type of #{carriage.type}"
     end
   end
 
-
-
   def delete_carriage
     @carriages.pop if @speed == 0
+    unless @carriages_block_arr.empty?
+      @carriages_block_arr.pop
+    end
   end
 
   def all_carriages

@@ -1,14 +1,12 @@
-module Block
-  def self.included(base)
-    base.include InstanceMethods
-  end
+@trains = [1, 2, 3]
+@some_array = []
 
-  module InstanceMethods
-    protected
-
-    def block
-      yield
+  def add_trains_to_block
+    @trains.each do |train|
+      @some_array << train
     end
   end
 
-end
+  @some_array.each do |train|
+    yield train
+  end

@@ -1,34 +1,25 @@
 require_relative './company.rb'
+require_relative './train.rb'
 # require_relative './valid.rb'
 
 class PassengerCarriage
   include Company
 
-  attr_accessor :type, :seats, :seats_count
-  attr_reader :trains
+  attr_accessor :trains, :type, :seats, :free_seats
+  @free_seats = 0
 
-  def initialize(seats_count)
-    @seats_count = seats_count
-    @seats = []
+  def initialize(seats)
+    @seats = seats
+    @free_seats = @free_seats
     @type = 1
   end
 
   def take_seat
-    if @seats.count < @seats_count
-      @seats << 1
-    else
-      puts "All seats taked"
-    end
+    @free_seats -= 1 if @free_seats > 0
   end
 
-  def taked_seats
-    @seats.count
+  def clear_seat
+    @free_seats += 1 if @free_seats < @seats
   end
-
-  def free_seats
-    @seats_count - @seats.count
-  end
-
-
 
 end
