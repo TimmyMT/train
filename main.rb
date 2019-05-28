@@ -9,6 +9,7 @@ require_relative './cargo_train.rb'
 user_stations = {}
 user_trains = {}
 user_routes = {}
+user_carriages = {}
 
 instructions = "Run Trains!\nEnter number action or 15 for exit\nStations actions:\n1 # Create station, 2 # Show all stations, 3 # Show all train in station, 4 # Leave train from station\nRoutes actions:\n5 # Create route, 6 # Show all routes, 7 # Add station in route\nTrains actions:\n8 # Create train, 9 # Show all trains, 10 # Shoose a route for train\n11 # Add carriage to train, 12 # Delete carriage from train, 13 # Comeback train to previous station\n"
 
@@ -121,20 +122,21 @@ until action == 15 do
   when 11
     puts "Enter the name of train for add carriage"
     name_train = gets.chomp
-    current_carriage = nil
+    puts "Enter the name carriage"
+    name_carriage = gets.chomp
     if user_trains.key?(name_train)
       if user_trains[name_train].type == 1
         puts "How many seats?"
         seats = gets.chomp.to_i
-        current_carriage = PassengerCarriage.new(seats)
+        user_carriages[name_carriage] = PassengerCarriage.new(seats)
         puts "Created seats: #{seats}"
       elsif user_trains[name_train].type == 0
         puts "How many volume?"
         volume = gets.chomp.to_i
-        current_carriage = CargoCarriage.new(volume)
+        user_carriages[name_carriage] = CargoCarriage.new(volume)
         puts "Created volume: #{volume}"
       end
-      user_trains[name_train].add_carriage(current_carriage)
+      user_trains[name_train].add_carriage(user_carriages[name_carriage])
     end
 
   when 12
@@ -181,6 +183,22 @@ until action == 15 do
     puts "Enter name train"
     name_train = gets.chomp
     puts_block { puts user_trains[name_train].carriages_block_arr }
+
+  when 19
+    puts "Enter name carriage"
+    name_carriage = gets.chomp
+    if user_carriages[name_carriage].type == 1
+      if user_carriages[name_carriage].free_seats > 0
+        user_carriages[name_carriage].take_seat
+        puts "Free seats: #{user_carriages[name_carriage].free_seats}"
+      else
+        puts "This cariiage have'nt seats"
+      end
+    elsif user_carriages[name_carriage].type == 0
+      puts "How many volume you want to take"
+      take = gets.chomp.to_i
+      user_carriages[name_carriage].take_volume(take)
+    end
 
   else
     puts "Something wrong"

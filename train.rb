@@ -48,7 +48,7 @@ class Train
   def add_carriage(carriage)
     if @speed == 0
       @carriages << carriage if @type == carriage.type
-      @carriages_block_arr << "Carriage #{carriage}, type of #{carriage.type}"
+      @carriages_block_arr << "Carriage #{carriage}"
     end
   end
 

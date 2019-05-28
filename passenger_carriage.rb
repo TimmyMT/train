@@ -6,11 +6,11 @@ class PassengerCarriage
   include Company
 
   attr_accessor :trains, :type, :seats, :free_seats
-  @free_seats = 0
+  # @free_seats = 0
 
   def initialize(seats)
     @seats = seats
-    @free_seats = @free_seats
+    @free_seats = seats
     @type = 1
   end
 
