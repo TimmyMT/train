@@ -1,11 +1,13 @@
 require_relative './instance_counter.rb'
 require_relative './valid.rb'
 require_relative './company.rb'
+require_relative './block.rb'
 
 class Train
   include Company
   include InstanceCounter
   include Valid
+  include Block
 
   attr_reader :routes, :stations, :carriages
   attr_accessor :type, :speed, :number, :trains, :quantity
@@ -45,6 +47,8 @@ class Train
       @carriages << carriage if @type == carriage.type
     end
   end
+
+
 
   def delete_carriage
     @carriages.pop if @speed == 0

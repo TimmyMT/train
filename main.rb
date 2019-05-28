@@ -2,10 +2,10 @@
 require_relative './route.rb'
 require_relative './station.rb'
 require_relative './train.rb'
-require_relative './carriage.rb'
-require_relative './cargo_train.rb'
+require_relative './passenger_carriage.rb'
+require_relative './cargo_carriage.rb'
 require_relative './passenger_train.rb'
-
+require_relative './cargo_train.rb'
 
 user_stations = {}
 user_trains = {}
@@ -119,7 +119,17 @@ until action == 15 do
     puts "Enter the name of train for add carriage"
     name_train = gets.chomp
     if user_trains.key?(name_train)
-      current_carriage = Carriage.new(user_trains[name_train].type)
+      if user_trains[name_train].type = 1
+        puts "How many seats?"
+        seats = gets.chomp.to_i
+        current_carriage = PassengerCarriage.new(seats)
+        puts "Created seats: #{current_carriage.seats_count}"
+      elsif user_trains[name_train].type = 0
+        puts "How many volume?"
+        volume = gets.chomp.to_i
+        current_carriage = CargoCarriage.new(volume)
+        puts "Created volume: #{current_carriage.volume}"
+      end
       user_trains[name_train].add_carriage(current_carriage)
     end
 
@@ -147,6 +157,11 @@ until action == 15 do
 
   when 14
     print instructions
+
+  when 16
+    puts "Enter the name of train"
+    name_train = gets.chomp
+    user_trains[name_train].block { puts user_trains[name_train].carriages }
 
   else
     puts "Something wrong"

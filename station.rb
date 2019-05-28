@@ -1,11 +1,13 @@
 require_relative './instance_counter.rb'
 require_relative './valid.rb'
+require_relative './block.rb'
 
 class Station
   include InstanceCounter
   include Valid
+  include Block
 
-  attr_reader :trains, :routes
+  attr_accessor :trains, :routes
 
   NAME_FORMAT = /^[a-zA-Z]{7}[0-9]$/i
   @trains = []
@@ -25,6 +27,10 @@ class Station
 
   def station
     @station
+  end
+
+  def block_train(&block)
+    @trains.each { |train| block.call(train) }
   end
 
   def add_train(name)

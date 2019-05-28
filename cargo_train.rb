@@ -1,4 +1,9 @@
+require_relative './train.rb'
+require_relative './cargo_carriage.rb'
+require_relative './block.rb'
+
 class CargoTrain < Train
+  include Block
 
   attr_accessor :speed, :type, :carriages, :number
 

@@ -1,6 +1,12 @@
-class PassengerTrain < Train
+require_relative './train.rb'
+require_relative './passenger_carriage.rb'
+require_relative './block.rb'
 
-  attr_accessor :speed, :type, :carriages, :number
+class PassengerTrain < Train
+  include Block
+
+  attr_accessor :speed, :type, :carriages, :number, :seats
+  @seats = []
 
   def initialize(number)
     @number = number
