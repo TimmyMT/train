@@ -11,7 +11,7 @@ user_trains = {}
 user_routes = {}
 user_carriages = {}
 
-instructions = "Run Trains!\nEnter number action or 15 for exit\nStations actions:\n1 # Create station, 2 # Show all stations, 3 # Show all train in station, 4 # Leave train from station\nRoutes actions:\n5 # Create route, 6 # Show all routes, 7 # Add station in route\nTrains actions:\n8 # Create train, 9 # Show all trains, 10 # Shoose a route for train\n11 # Add carriage to train, 12 # Delete carriage from train, 13 # Comeback train to previous station\n"
+instructions = "Run Trains!\nEnter number action or 15 for exit\nStations actions:\n1 # Create station, 2 # Show all stations, 3 # Show all train in station, 4 # Leave train from station\nRoutes actions:\n5 # Create route, 6 # Show all routes, 7 # Add station in route\nTrains actions:\n8 # Create train, 9 # Show all trains, 10 # Shoose a route for train\n11 # Add carriage to train, 12 # Delete carriage from train, 13 # Comeback train to previous station\n16 # Show all trains of station, 17 # Show all carriages of train, 19 # Change params carriage\n"
 
 print instructions
 print 'Action: '
@@ -200,7 +200,7 @@ until action == 15 do
 
   end
 
-  puts 'Show instructions 14'
+  puts 'Show instructions 14 or exit 15'
   print 'Action: '
   action = gets.chomp.to_i
 
