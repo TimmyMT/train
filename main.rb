@@ -188,18 +188,11 @@ until action == 15 do
   when 19
     puts "Enter name carriage"
     name_carriage = gets.chomp
-    if user_carriages[name_carriage].type == 1
-      if user_carriages[name_carriage].free_seats > 0
-        user_carriages[name_carriage].take_seat
-        puts "Free seats: #{user_carriages[name_carriage].free_seats}"
-      else
-        puts "This cariiage have'nt seats"
-      end
-    elsif user_carriages[name_carriage].type == 0
-      puts "How many volume you want to take"
-      take = gets.chomp.to_i
-      user_carriages[name_carriage].take_volume(take)
-      puts "Free volume #{user_carriages[name_carriage].free_volume}"
+    if user_carriages[name_carriage].free_volume > 0
+      user_carriages[name_carriage].take_volume
+      puts "Free volume(weight)/seats: #{user_carriages[name_carriage].free_volume}"
+    else
+      puts "This cariiage haven't more volume"
     end
 
   else

@@ -1,24 +1,26 @@
 require_relative './carriage.rb'
 require_relative './company.rb'
 require_relative './train.rb'
+require_relative './change_volume.rb'
 
 class PassengerCarriage < Carriage
   include Company
+  include ChangeVolume
 
-  attr_accessor :trains, :type, :seats, :free_seats
+  attr_accessor :trains, :type, :volume, :free_volume
 
-  def initialize(seats)
-    @seats = seats
-    @free_seats = seats
+  def initialize(volume)
+    @volume = volume
+    @free_volume = volume
     @type = 1
   end
 
-  def take_seat
-    @free_seats -= 1 if @free_seats > 0
-  end
-
-  def clear_seat
-    @free_seats += 1 if @free_seats < @seats
-  end
+  # def take_volume
+  #   @free_volume -= 1 if @free_volume > 0
+  # end
+  #
+  # def clear_volume
+  #   @free_volume += 1 if @free_volume < @volume
+  # end
 
 end
