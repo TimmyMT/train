@@ -11,15 +11,15 @@ user_trains = {}
 user_routes = {}
 user_carriages = {}
 
-instructions = "Run Trains!\nEnter number action or 15 for exit\nStations actions:\n1 # Create station, 2 # Show all stations, 3 # Show all train in station, 4 # Leave train from station\nRoutes actions:\n5 # Create route, 6 # Show all routes, 7 # Add station in route\nTrains actions:\n8 # Create train, 9 # Show all trains, 10 # Shoose a route for train\n11 # Add carriage to train, 12 # Delete carriage from train, 13 # Comeback train to previous station\n16 # Show all trains of station, 17 # Show all carriages of train, 19 # Change params carriage\n"
+instructions = "Run Trains!\nEnter number action or 15 for exit\nStations actions:\n1 # Create station, 2 # Show all stations, 3 # Show all train in station, 4 # Leave train from station\nRoutes actions:\n5 # Create route, 6 # Show all routes, 7 # Add station in route\nTrains actions:\n8 # Create train, 9 # Show all trains, 10 # Shoose a route for train\n11 # Add carriage to train, 12 # Delete carriage from train, 13 # Comeback train to previous station\n16 # Show all trains of station, 18 # Show all carriages of train, 19 # Change params carriage\n"
 
 print instructions
 print 'Action: '
 action = gets.chomp.to_i
 
-def puts_block
-  yield
-end
+# def puts_block
+#   yield
+# end
 
 until action == 15 do
   case action
@@ -129,12 +129,12 @@ until action == 15 do
         puts "How many seats?"
         seats = gets.chomp.to_i
         user_carriages[name_carriage] = PassengerCarriage.new(seats)
-        puts "Created seats: #{seats}"
+        puts "Created passenger carriage with seats: #{seats}"
       elsif user_trains[name_train].type == 0
         puts "How many volume?"
         volume = gets.chomp.to_i
         user_carriages[name_carriage] = CargoCarriage.new(volume)
-        puts "Created volume: #{volume}"
+        puts "Created cargo carriage with volume: #{volume}"
       end
       user_trains[name_train].add_carriage(user_carriages[name_carriage])
     end
@@ -168,21 +168,26 @@ until action == 15 do
   when 16
     puts "Enter the name of station"
     name_station = gets.chomp
-    puts_block { puts user_stations[name_station].trains_block_arr }
+    user_stations[name_station].create_trains_list
+    user_stations[name_station].puts_block { puts user_stations[name_station].trains_block_arr }
 
   # add train to station
-  when 17
-    puts "Enter name station"
-    name_station = gets.chomp
-    puts "Enter name train"
-    name_train = gets.chomp
-    user_stations[name_station].add_train(user_trains[name_train])
+  #
+  # when 17
+  #   puts "Enter name station"
+  #   name_station = gets.chomp
+  #   puts "Enter name train"
+  #   name_train = gets.chomp
+  #   user_stations[name_station].add_train(user_trains[name_train])
+  #
+  # it was be a test action
 
   # using block for puts carriages in train
   when 18
     puts "Enter name train"
     name_train = gets.chomp
-    puts_block { puts user_trains[name_train].carriages_block_arr }
+    user_trains[name_train].create_carriages_list
+    user_trains[name_train].puts_block { puts user_trains[name_train].carriages_block_arr }
 
   # change carggiages params
   when 19
@@ -190,7 +195,11 @@ until action == 15 do
     name_carriage = gets.chomp
     if user_carriages[name_carriage].free_volume > 0
       user_carriages[name_carriage].take_volume
-      puts "Free volume(weight)/seats: #{user_carriages[name_carriage].free_volume}"
+      if user_carriages[name_carriage].type == 1
+        puts "Free volume seats: #{user_carriages[name_carriage].free_volume}"
+      elsif user_carriages[name_carriage].type == 0
+        puts "Free volume(weight): #{user_carriages[name_carriage].free_volume}"
+      end
     else
       puts "This cariiage haven't more volume"
     end

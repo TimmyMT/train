@@ -27,13 +27,22 @@ class Station
     register_instance
   end
 
+  def puts_block
+    yield
+  end
+
+  def create_trains_list
+    @trains.each do |train|
+      @trains_block_arr << "Train number: #{train.number}, type: #{train.type}, carriages: #{train.carriages}"
+    end
+  end
+
   def station
     @station
   end
 
   def add_train(name)
     @trains << name
-    @trains_block_arr << "Train number #{name.number}, type #{name.type}"
     puts "a train #{name} arrived at the station #{@station}"
   end
 

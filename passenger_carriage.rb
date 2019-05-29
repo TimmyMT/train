@@ -1,11 +1,11 @@
 require_relative './carriage.rb'
 require_relative './company.rb'
 require_relative './train.rb'
-require_relative './change_volume.rb'
+# require_relative './change_volume.rb'
 
 class PassengerCarriage < Carriage
   include Company
-  include ChangeVolume
+  # include ChangeVolume
 
   attr_accessor :trains, :type, :volume, :free_volume
 

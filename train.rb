@@ -35,7 +35,15 @@ class Train
     register_instance
   end
 
+  def puts_block
+    yield
+  end
 
+  def create_carriages_list
+    @carriages.each do |carriage|
+      @carriages_block_arr << "Carriage: #{carriage}, volume/seats #{carriage.volume}"
+    end
+  end
 
   def speed_up
     @speed += 5
@@ -48,7 +56,6 @@ class Train
   def add_carriage(carriage)
     if @speed == 0
       @carriages << carriage if @type == carriage.type
-      @carriages_block_arr << "Carriage #{carriage}"
     end
   end
 
