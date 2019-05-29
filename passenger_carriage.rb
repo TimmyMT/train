@@ -1,12 +1,11 @@
+require_relative './carriage.rb'
 require_relative './company.rb'
 require_relative './train.rb'
-# require_relative './valid.rb'
 
-class PassengerCarriage
+class PassengerCarriage < Carriage
   include Company
 
   attr_accessor :trains, :type, :seats, :free_seats
-  # @free_seats = 0
 
   def initialize(seats)
     @seats = seats

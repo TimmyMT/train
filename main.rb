@@ -184,6 +184,7 @@ until action == 15 do
     name_train = gets.chomp
     puts_block { puts user_trains[name_train].carriages_block_arr }
 
+  # change carggiages params
   when 19
     puts "Enter name carriage"
     name_carriage = gets.chomp
@@ -198,6 +199,7 @@ until action == 15 do
       puts "How many volume you want to take"
       take = gets.chomp.to_i
       user_carriages[name_carriage].take_volume(take)
+      puts "Free volume #{user_carriages[name_carriage].free_volume}"
     end
 
   else
