@@ -40,6 +40,9 @@ class Train
   end
 
   def create_carriages_list
+    until @carriages_block_arr == []
+      @carriages_block_arr.pop
+    end
     @carriages.each do |carriage|
       @carriages_block_arr << "Carriage: #{carriage}, volume/seats #{carriage.volume}"
     end

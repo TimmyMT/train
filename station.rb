@@ -32,6 +32,9 @@ class Station
   end
 
   def create_trains_list
+    until @trains_block_arr == []
+      @trains_block_arr.pop
+    end
     @trains.each do |train|
       @trains_block_arr << "Train number: #{train.number}, type: #{train.type}, carriages: #{train.carriages}"
     end
