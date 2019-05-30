@@ -35,6 +35,7 @@ class Train
     register_instance
   end
 
+  ######################################################################################################################
   def puts_block
     yield
   end
@@ -47,6 +48,8 @@ class Train
       @carriages_block_arr << "Carriage: #{carriage}, volume/seats #{carriage.volume}"
     end
   end
+  # где проходит по всем вагонам поезда, передавая каждый объект вагона в блок? Тут create_carriages_list
+  ######################################################################################################################
 
   def speed_up
     @speed += 5

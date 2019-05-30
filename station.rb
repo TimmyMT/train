@@ -27,6 +27,8 @@ class Station
     register_instance
   end
 
+
+  ######################################################################################################################
   def puts_block
     yield
   end
@@ -39,6 +41,8 @@ class Station
       @trains_block_arr << "Train number: #{train.number}, type: #{train.type}, carriages: #{train.carriages}"
     end
   end
+  # А где он проходит по всем поездам на станции, передавая каждый поезд в блок? Тут create_trains_list
+  ######################################################################################################################
 
   def station
     @station
