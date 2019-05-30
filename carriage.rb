@@ -1,50 +1,26 @@
 require_relative './company.rb'
 require_relative './valid.rb'
+# require_relative './cargo_carriage.rb'
+# require_relative './passenger_carriage.rb'
 
 class Carriage
   include Company
 
-  attr_accessor :trains, :type, :volume, :free_volume
+  attr_accessor :trains, :type, :volume, :occupied_volume
 
-  @type = 0
-
-  def initialize(type)
-    if type == 1
-      @type = 1
-    elsif type == 0
-      @type = 0
-    else
-      @type = -1
-    end
+  def initialize(type, volume)
+    @type = type
+    @volume = volume
+    @occupied_volume = 0
     validate!
   end
 
-  def take_volume
-    if @type == 1
-      @free_volume -= 1 if @free_volume > 0
-    elsif @type == 0
-      puts "How many take?"
-      take = gets.chomp.to_i
-      if @free_volume >= take
-        @free_volume -= take if @free_volume > 0
-      else
-        puts "Wrong take volume"
-      end
-    end
+  def free_volume
+    @volume - @occupied_volume
   end
 
-  def clear_volume
-    if @type == 1
-      @free_volume += 1 if @free_volume < @volume
-    elsif @type == 0
-      puts "How many clear?"
-      clear = gets.chomp.to_i
-      if @volume >= clear
-        @free_volume = @volume - clear if @free_volume < @volume
-      else
-        puts "Wrong clear volume"
-      end
-    end
+  def take_volume(place = 1)
+    @volume -= place if free_volume >= place
   end
 
   protected
@@ -54,5 +30,4 @@ class Carriage
     raise "Wrong parameters, need enter to '1' or '0'" if @type < 0
     true
   end
-
 end

@@ -128,12 +128,12 @@ until action == 15 do
       if user_trains[name_train].type == 1
         puts "How many seats?"
         seats = gets.chomp.to_i
-        user_carriages[name_carriage] = PassengerCarriage.new(seats)
+        user_carriages[name_carriage] = PassengerCarriage.new(1, seats)
         puts "Created passenger carriage with seats: #{seats}"
       elsif user_trains[name_train].type == 0
         puts "How many volume?"
         volume = gets.chomp.to_i
-        user_carriages[name_carriage] = CargoCarriage.new(volume)
+        user_carriages[name_carriage] = CargoCarriage.new(0, volume)
         puts "Created cargo carriage with volume: #{volume}"
       end
       user_trains[name_train].add_carriage(user_carriages[name_carriage])
@@ -194,10 +194,13 @@ until action == 15 do
     puts "Enter name carriage"
     name_carriage = gets.chomp
     if user_carriages[name_carriage].free_volume > 0
-      user_carriages[name_carriage].take_volume
       if user_carriages[name_carriage].type == 1
+        user_carriages[name_carriage].take_volume
         puts "Free volume seats: #{user_carriages[name_carriage].free_volume}"
       elsif user_carriages[name_carriage].type == 0
+        puts "How volume you want take"
+        place = gets.chomp.to_i
+        user_carriages[name_carriage].take_volume(place)
         puts "Free volume(weight): #{user_carriages[name_carriage].free_volume}"
       end
     else
