@@ -168,8 +168,7 @@ until action == 15 do
   when 16
     puts "Enter the name of station"
     name_station = gets.chomp
-    user_stations[name_station].create_trains_list
-    user_stations[name_station].puts_block { puts user_stations[name_station].trains_block_arr }
+    user_stations[name_station].each_train { |train| puts "Train: #{train.number}, #{train.type}" }
 
   # add train to station
   #
@@ -186,8 +185,7 @@ until action == 15 do
   when 18
     puts "Enter name train"
     name_train = gets.chomp
-    user_trains[name_train].create_carriages_list
-    user_trains[name_train].puts_block { puts user_trains[name_train].carriages_block_arr }
+    user_trains[name_train].each_carriage { |carriage| puts "Carriage: #{carriage}" }
 
   # change carggiages params
   when 19
