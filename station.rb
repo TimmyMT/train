@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative './instance_counter.rb'
 require_relative './valid.rb'
 
@@ -7,7 +9,7 @@ class Station
 
   attr_accessor :trains, :routes, :trains_block_arr
 
-  NAME_FORMAT = /^[a-zA-Z]{7}[0-9]$/i
+  NAME_FORMAT = /^[a-zA-Z]{7}[0-9]$/i.freeze
   @trains = []
   @@stations = []
   @trains_block_arr = []
@@ -29,9 +31,7 @@ class Station
     @trains.each { |train| yield train }
   end
 
-  def station
-    @station
-  end
+  attr_reader :station
 
   def add_train(name)
     @trains << name
@@ -39,24 +39,22 @@ class Station
   end
 
   def all_trains
-    @pas = @trains.count {|train| train.type == 1}
-    @carg = @trains.count {|train| train.type == 0}
+    @pas = @trains.count { |train| train.type == 1 }
+    @carg = @trains.count { |train| train.type == 0 }
     puts "the station #{@station} now has #{@trains.count} trains: , Passenger: #{@pas}, Cargo: #{@carg}"
   end
 
   def leave_train
     @trains[0].up_station
     @trains.shift
-    unless @trains_block_arr.empty?
-      @trains_block_arr.shift
-    end
+    @trains_block_arr.shift unless @trains_block_arr.empty?
   end
 
   protected
 
   def validate!
-    raise "Wrong parameters for name of station (most be 7 symbols)" if @station !~ NAME_FORMAT
+    raise 'Wrong parameters for name of station (most be 7 symbols)' if @station !~ NAME_FORMAT
+
     true
   end
-
 end

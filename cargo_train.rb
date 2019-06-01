@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require_relative './train.rb'
 require_relative './cargo_carriage.rb'
 
+# This is a class Train for my stations.
 class CargoTrain < Train
-
   attr_accessor :speed, :type, :carriages, :number, :carriages_block_arr
 
   def initialize(number)
@@ -14,5 +16,4 @@ class CargoTrain < Train
     validate!
     puts "Train created #{@number}"
   end
-
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative './instance_counter.rb'
 require_relative './valid.rb'
 require_relative './company.rb'
@@ -10,12 +12,11 @@ class Train
   attr_reader :routes, :stations, :carriages
   attr_accessor :type, :speed, :number, :trains, :carriages_block_arr
 
-  NUMBER_FORMAT = /^[a-zA-Z0-9]{1}-*[a-zA-Z0-9]{1}-*[a-zA-Z0-9]{1}$/i
+  NUMBER_FORMAT = /^[a-zA-Z0-9]{1}-*[a-zA-Z0-9]{1}-*[a-zA-Z0-9]{1}$/i.freeze
   @carriages = []
   @@trains = {}
   @number = 0
   @carriages_block_arr = []
-
 
   def self.trains
     @@trains
@@ -48,14 +49,12 @@ class Train
   end
 
   def add_carriage(carriage)
-    @carriages << carriage if @type == carriage.type && @speed == 0
+    @carriages << carriage if @type == carriage.type && @speed.zero?
   end
 
   def delete_carriage
-    @carriages.pop if @speed == 0
-    unless @carriages_block_arr.empty?
-      @carriages_block_arr.pop
-    end
+    @carriages.pop if @speed.zero?
+    @carriages_block_arr.pop unless @carriages_block_arr.empty?
   end
 
   def all_carriages
@@ -73,13 +72,11 @@ class Train
     @route
   end
 
-  def current_station
-    @current_station
-  end
+  attr_reader :current_station
 
   def up_station
     if @current_station == @route.last_station
-      puts "Last station"
+      puts 'Last station'
     else
       @current_number += 1
       @current_station = @route.stations(@current_number)
@@ -93,7 +90,7 @@ class Train
 
   def down_station
     if @current_station == @route.last_station
-      puts "First station"
+      puts 'First station'
     else
       @current_number -= 1
       @current_station = @route.stations(@current_number)
@@ -108,8 +105,8 @@ class Train
   protected
 
   def validate!
-    raise "Wrong parameters for number of train" if @number !~ NUMBER_FORMAT
+    raise 'Wrong parameters for number of train' if @number !~ NUMBER_FORMAT
+
     true
   end
-
 end

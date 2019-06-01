@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative './instance_counter.rb'
 
 class Route
@@ -37,5 +39,4 @@ class Route
   def last_station
     @stations.last
   end
-
 end

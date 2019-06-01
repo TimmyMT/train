@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative './route.rb'
 require_relative './station.rb'
 require_relative './train.rb'
@@ -17,117 +19,117 @@ print instructions
 print 'Action: '
 action = gets.chomp.to_i
 
-until action == 15 do
+until action == 15
   case action
   # Station actions
   when 1
-    puts "Enter the number Station"
+    puts 'Enter the number Station'
     number = gets.chomp
-    puts "Enter the name Station (7 symbols)"
+    puts 'Enter the name Station (7 symbols)'
     begin
       name = gets.chomp
       user_stations[number] = Station.new(name)
       puts "Station created #{name}"
-    rescue => e
+    rescue StandardError => e
       puts "Error: #{e.message}, please try again"
       retry
     end
 
   when 2
-    user_stations.each {|key, value| puts "#{key} => #{value}" }
+    user_stations.each { |key, value| puts "#{key} => #{value}" }
 
   when 3
-    puts "Enter the name station"
+    puts 'Enter the name station'
     name_station = gets.chomp
     user_stations[name_station].all_trains
 
   when 4
-    puts "Enter the name station for leave train"
+    puts 'Enter the name station for leave train'
     name_station = gets.chomp
     if user_stations.key?(name_station)
       if user_stations[name_station].trains[0].current_station == user_stations[name_station].trains[0].current_route.last_station
-        puts "This is a last station"
+        puts 'This is a last station'
       else
         user_stations[name_station].leave_train
       end
     else
-      puts "Something wrong"
+      puts 'Something wrong'
     end
 
   # Route actions
   when 5
-    puts "Enter the name of route"
+    puts 'Enter the name of route'
     name_route = gets.chomp
-    puts "Enter the number of first station"
+    puts 'Enter the number of first station'
     number_station_first = gets.chomp
-    puts "Enter the number of last station"
+    puts 'Enter the number of last station'
     number_station_last = gets.chomp
     if user_stations.key?(number_station_first) && user_stations.key?(number_station_last)
       user_routes[name_route] = Route.new(user_stations[number_station_first], user_stations[number_station_last])
       puts "Route created #{user_stations[number_station_first]} - #{user_stations[number_station_last]}"
     else
-      puts "Something wrong"
+      puts 'Something wrong'
     end
 
   when 6
-    user_routes.each {|key, value| puts "#{key} => #{value}" }
+    user_routes.each { |key, value| puts "#{key} => #{value}" }
 
   when 7
-    puts "Enter the name route for add station"
+    puts 'Enter the name route for add station'
     name_route = gets.chomp
-    puts "Enter the number station for add in route"
+    puts 'Enter the number station for add in route'
     number_station = gets.chomp
     if user_routes.key?(name_route) && user_stations.key?(number_station)
       user_routes[name_route].add_station(user_stations[number_station])
       puts "In route added station #{number_station}"
     else
-      puts "Something wrong"
+      puts 'Something wrong'
     end
 
   # Train actions
   when 8
-    puts "Enther the type of train passenger/cargo"
+    puts 'Enther the type of train passenger/cargo'
     type_train = gets.chomp
-    puts "Enter the name of train"
+    puts 'Enter the name of train'
     name = gets.chomp
-    puts "Enter the 3 symbols for number of train"
+    puts 'Enter the 3 symbols for number of train'
     begin
       number = gets.chomp
       user_trains[name] = PassengerTrain.new(number) if type_train == 'passenger'
       user_trains[name] = CargoTrain.new(number) if type_train == 'cargo'
-    rescue => e
+    rescue StandardError => e
       puts "Error: #{e.message}, please try again"
       retry
     end
 
   when 9
-    user_trains.each {|key, value| puts "#{key} => #{value}" }
+    user_trains.each { |key, value| puts "#{key} => #{value}" }
 
   when 10
-    puts "Enter the name of train"
+    puts 'Enter the name of train'
     name_train = gets.chomp
-    puts "Enter the name route shoose for train"
+    puts 'Enter the name route shoose for train'
     name_route = gets.chomp
     if user_trains.key?(name_train) && user_routes.key?(name_route)
       user_trains[name_train].route(user_routes[name_route])
       puts "the train #{user_trains[name_train]} is ready to be shipped from the station #{user_trains[name_train].current_station.station} on route #{user_routes[name_route]}"
     else
-      puts "Something wrong"
+      puts 'Something wrong'
     end
 
   when 11
-    puts "Enter the name of train for add carriage"
+    puts 'Enter the name of train for add carriage'
     name_train = gets.chomp
-    puts "Enter the name carriage"
+    puts 'Enter the name carriage'
     name_carriage = gets.chomp
     if user_trains.key?(name_train)
       if user_trains[name_train].type == 1
-        puts "How many seats?"
+        puts 'How many seats?'
         seats = gets.chomp.to_i
         user_carriages[name_carriage] = PassengerCarriage.new(1, seats)
         puts "Created passenger carriage with seats: #{seats}"
       elsif user_trains[name_train].type == 0
-        puts "How many volume?"
+        puts 'How many volume?'
         volume = gets.chomp.to_i
         user_carriages[name_carriage] = CargoCarriage.new(0, volume)
         puts "Created cargo carriage with volume: #{volume}"
@@ -136,25 +138,25 @@ until action == 15 do
     end
 
   when 12
-    puts "Enter the name train for delete carriage"
+    puts 'Enter the name train for delete carriage'
     name_train = gets.chomp
     if user_trains.key?(name_train)
       user_trains[name_train].delete_carriage
     else
-      puts "Something wrong"
+      puts 'Something wrong'
     end
 
   when 13
-    puts "Enter the name train for comeback"
+    puts 'Enter the name train for comeback'
     name_train = gets.chomp
     if user_trains.key?(name_train)
       if user_trains[name_train].current_station == train.current_route.stations(0)
-        puts "This is a firs station"
+        puts 'This is a firs station'
       else
         user_trains[name_train].down_station
       end
     else
-      puts "Something wrong"
+      puts 'Something wrong'
     end
 
   when 14
@@ -162,7 +164,7 @@ until action == 15 do
 
   # using block for puts trains in station
   when 16
-    puts "Enter the name of station"
+    puts 'Enter the name of station'
     name_station = gets.chomp
     user_stations[name_station].each_train { |train| puts "Train: #{train.number}, #{train.type}" }
 
@@ -179,20 +181,20 @@ until action == 15 do
 
   # using block for puts carriages in train
   when 18
-    puts "Enter name train"
+    puts 'Enter name train'
     name_train = gets.chomp
     user_trains[name_train].each_carriage { |carriage| puts "Carriage: #{carriage}" }
 
   # change carggiages params
   when 19
-    puts "Enter name carriage"
+    puts 'Enter name carriage'
     name_carriage = gets.chomp
     if user_carriages[name_carriage].free_volume > 0
       if user_carriages[name_carriage].type == 1
         user_carriages[name_carriage].take_volume
         puts "Free volume seats: #{user_carriages[name_carriage].free_volume}"
       elsif user_carriages[name_carriage].type == 0
-        puts "How volume you want take"
+        puts 'How volume you want take'
         place = gets.chomp.to_i
         user_carriages[name_carriage].take_volume(place)
         puts "Free volume(weight): #{user_carriages[name_carriage].free_volume}"
@@ -202,7 +204,7 @@ until action == 15 do
     end
 
   else
-    puts "Something wrong"
+    puts 'Something wrong'
 
   end
 
