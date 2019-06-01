@@ -19,13 +19,11 @@ class Route
   end
 
   def add_station(station)
-    # some_array.insert(index, value) - добавить элемент в массив
     @stations.insert(1, station)
   end
 
   def delete_station
     @stations.delete_at(1) if @stations.count > 2
-    # puts "Station deleted from route #{@stations[stations.count - 2].station}"
   end
 
   def all_stations

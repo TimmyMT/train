@@ -1,11 +1,9 @@
 require_relative './instance_counter.rb'
 require_relative './valid.rb'
-# require_relative './block.rb'
 
 class Station
   include InstanceCounter
   include Valid
-  # instance_counter
 
   attr_accessor :trains, :routes, :trains_block_arr
 
@@ -28,9 +26,7 @@ class Station
   end
 
   def each_train
-    @trains.each do |train|
-      yield train
-    end
+    @trains.each { |train| yield train }
   end
 
   def station

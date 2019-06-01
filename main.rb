@@ -17,10 +17,6 @@ print instructions
 print 'Action: '
 action = gets.chomp.to_i
 
-# def puts_block
-#   yield
-# end
-
 until action == 15 do
   case action
   # Station actions
@@ -66,7 +62,7 @@ until action == 15 do
     number_station_first = gets.chomp
     puts "Enter the number of last station"
     number_station_last = gets.chomp
-    if user_stations.key?(number_station_first) and user_stations.key?(number_station_last)
+    if user_stations.key?(number_station_first) && user_stations.key?(number_station_last)
       user_routes[name_route] = Route.new(user_stations[number_station_first], user_stations[number_station_last])
       puts "Route created #{user_stations[number_station_first]} - #{user_stations[number_station_last]}"
     else
@@ -81,7 +77,7 @@ until action == 15 do
     name_route = gets.chomp
     puts "Enter the number station for add in route"
     number_station = gets.chomp
-    if user_routes.key?(name_route) and user_stations.key?(number_station)
+    if user_routes.key?(name_route) && user_stations.key?(number_station)
       user_routes[name_route].add_station(user_stations[number_station])
       puts "In route added station #{number_station}"
     else
@@ -112,7 +108,7 @@ until action == 15 do
     name_train = gets.chomp
     puts "Enter the name route shoose for train"
     name_route = gets.chomp
-    if user_trains.key?(name_train) and user_routes.key?(name_route)
+    if user_trains.key?(name_train) && user_routes.key?(name_route)
       user_trains[name_train].route(user_routes[name_route])
       puts "the train #{user_trains[name_train]} is ready to be shipped from the station #{user_trains[name_train].current_station.station} on route #{user_routes[name_route]}"
     else

@@ -36,9 +36,7 @@ class Train
   end
 
   def each_carriage
-    @carriages.each do |carriage|
-      yield carriage
-    end
+    @carriages.each { |carriage| yield carriage }
   end
 
   def speed_up
@@ -50,9 +48,7 @@ class Train
   end
 
   def add_carriage(carriage)
-    if @speed == 0
-      @carriages << carriage if @type == carriage.type
-    end
+    @carriages << carriage if @type == carriage.type && @speed == 0
   end
 
   def delete_carriage

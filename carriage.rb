@@ -1,7 +1,5 @@
 require_relative './company.rb'
 require_relative './valid.rb'
-# require_relative './cargo_carriage.rb'
-# require_relative './passenger_carriage.rb'
 
 class Carriage
   include Company
