@@ -3,6 +3,7 @@
 require_relative './instance_counter.rb'
 require_relative './valid.rb'
 
+# user Stations
 class Station
   include InstanceCounter
   include Valid

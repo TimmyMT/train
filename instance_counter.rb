@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
+# this is a counter for quantity elements
 module InstanceCounter
   def self.included(base)
     base.extend ClassMethods
     base.include InstanceMethods
   end
 
+  # methods for class
   module ClassMethods
     attr_writer :instances
 
@@ -14,6 +16,7 @@ module InstanceCounter
     end
   end
 
+  # methods for instatnce
   module InstanceMethods
     protected
 

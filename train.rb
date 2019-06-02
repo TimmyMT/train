@@ -4,6 +4,7 @@ require_relative './instance_counter.rb'
 require_relative './valid.rb'
 require_relative './company.rb'
 
+# my Train class
 class Train
   include Company
   include InstanceCounter
