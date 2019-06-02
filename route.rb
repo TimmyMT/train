@@ -2,16 +2,14 @@
 
 require_relative './instance_counter.rb'
 
-# user Riutes
+# user Routes
 class Route
   include InstanceCounter
 
   attr_reader :trains, :stations
 
   @stations = []
-  # rubocop:disable all
   @@routes = []
-  # rubocop:enable all
 
   def self.routes
     @@routes
@@ -31,16 +29,13 @@ class Route
     @stations.delete_at(1) if @stations.count > 2
   end
 
-  # rubocop:disable all
   def all_stations
     @stations
   end
 
-
   def stations(number)
     @stations[number]
   end
-  # rubocop:enable all
 
   def last_station
     @stations.last

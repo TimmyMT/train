@@ -15,9 +15,7 @@ class Train
 
   NUMBER_FORMAT = /^[a-zA-Z0-9]{1}-*[a-zA-Z0-9]{1}-*[a-zA-Z0-9]{1}$/i.freeze
   @carriages = []
-  # rubocop:disable all
   @@trains = {}
-  # rubocop:enable all
   @number = 0
   @carriages_block_arr = []
 
