@@ -12,7 +12,9 @@ class Station
 
   NAME_FORMAT = /^[a-zA-Z]{7}[0-9]$/i.freeze
   @trains = []
+  # rubocop:disable all
   @@stations = []
+  # rubocop:enable all
   @trains_block_arr = []
 
   def self.stations
@@ -39,11 +41,13 @@ class Station
     puts "a train #{name} arrived at the station #{@station}"
   end
 
+  # rubocop:disable all
   def all_trains
     @pas = @trains.count { |train| train.type == 1 }
     @carg = @trains.count { |train| train.type == 0 }
     puts "the station #{@station} now has #{@trains.count} trains: , Passenger: #{@pas}, Cargo: #{@carg}"
   end
+  # rubocop:enable all
 
   def leave_train
     @trains[0].up_station
@@ -51,11 +55,14 @@ class Station
     @trains_block_arr.shift unless @trains_block_arr.empty?
   end
 
+  # rubocop:disable all
   protected
+
 
   def validate!
     raise 'Wrong parameters for name of station (most be 7 symbols)' if @station !~ NAME_FORMAT
 
     true
   end
+  # rubocop:enable all
 end

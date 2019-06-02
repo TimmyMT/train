@@ -13,7 +13,9 @@ user_trains = {}
 user_routes = {}
 user_carriages = {}
 
+# rubocop:disable all
 instructions = "Run Trains!\nEnter number action or 15 for exit\nStations actions:\n1 # Create station, 2 # Show all stations, 3 # Show all train in station, 4 # Leave train from station\nRoutes actions:\n5 # Create route, 6 # Show all routes, 7 # Add station in route\nTrains actions:\n8 # Create train, 9 # Show all trains, 10 # Shoose a route for train\n11 # Add carriage to train, 12 # Delete carriage from train, 13 # Comeback train to previous station\n16 # Show all trains of station, 18 # Show all carriages of train, 19 # Change params carriage\n"
+# rubocop:enable all
 
 print instructions
 print 'Action: '
@@ -43,6 +45,7 @@ until action == 15
     name_station = gets.chomp
     user_stations[name_station].all_trains
 
+  # rubocop:disable all
   when 4
     puts 'Enter the name station for leave train'
     name_station = gets.chomp
@@ -71,6 +74,7 @@ until action == 15
     else
       puts 'Something wrong'
     end
+  # rubocop:enable all
 
   when 6
     user_routes.each { |key, value| puts "#{key} => #{value}" }
@@ -87,6 +91,7 @@ until action == 15
       puts 'Something wrong'
     end
 
+  # rubocop:disable all
   # Train actions
   when 8
     puts 'Enther the type of train passenger/cargo'
@@ -182,7 +187,6 @@ until action == 15
     name_train = gets.chomp
     user_trains[name_train].each_carriage { |carriage| puts "Carriage: #{carriage}" }
 
-
   # change carggiages params
   when 19
     puts 'Enter name carriage'
@@ -200,6 +204,7 @@ until action == 15
     else
       puts "This cariiage haven't more volume"
     end
+  # rubocop:enable all
 
   else
     puts 'Something wrong'

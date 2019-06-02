@@ -4,7 +4,7 @@ require_relative './instance_counter.rb'
 require_relative './valid.rb'
 require_relative './company.rb'
 
-# my Train class
+# Train class
 class Train
   include Company
   include InstanceCounter
@@ -15,7 +15,9 @@ class Train
 
   NUMBER_FORMAT = /^[a-zA-Z0-9]{1}-*[a-zA-Z0-9]{1}-*[a-zA-Z0-9]{1}$/i.freeze
   @carriages = []
+  # rubocop:disable all
   @@trains = {}
+  # rubocop:enable all
   @number = 0
   @carriages_block_arr = []
 
