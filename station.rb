@@ -1,28 +1,31 @@
-# frozen_string_literal: true
-
 require_relative './instance_counter.rb'
-require_relative './valid.rb'
+# require_relative './valid.rb'
+require_relative './accessors.rb'
 
 # user Stations
 class Station
   include InstanceCounter
-  include Valid
-
-  attr_accessor :trains, :routes, :trains_block_arr
+  # include Valid
+  extend Accessors
 
   NAME_FORMAT = /^[a-zA-Z]{7}[0-9]$/i.freeze
+
+  attr_accessor :trains, :routes#, :trains_block_arr
+  attr_reader :station
+  my_accessor :trains
+  strong_accessor :trains, String
+
   @trains = []
   # rubocop:disable all
   @@stations = []
   # rubocop:enable all
-  @trains_block_arr = []
 
   def self.stations
     @@stations
   end
 
   def initialize(name)
-    @trains_block_arr = []
+    # @trains_block_arr = []
     @station = name
     validate!
     @trains = []
@@ -52,7 +55,6 @@ class Station
   def leave_train
     @trains[0].up_station
     @trains.shift
-    @trains_block_arr.shift unless @trains_block_arr.empty?
   end
 
   # rubocop:disable all

@@ -1,25 +1,26 @@
-# frozen_string_literal: true
-
 require_relative './instance_counter.rb'
-require_relative './valid.rb'
+# require_relative './valid.rb'
 require_relative './company.rb'
+require_relative './validation.rb'
 
 # Train class
 class Train
   include Company
   include InstanceCounter
-  include Valid
+  include Validation
+
+  NUMBER_FORMAT = /^[a-zA-Z0-9]{1}-*[a-zA-Z0-9]{1}-*[a-zA-Z0-9]{1}$/i.freeze
 
   attr_reader :routes, :stations, :carriages
   attr_accessor :type, :speed, :number, :trains, :carriages_block_arr
 
-  NUMBER_FORMAT = /^[a-zA-Z0-9]{1}-*[a-zA-Z0-9]{1}-*[a-zA-Z0-9]{1}$/i.freeze
+  validate :number, :format, NUMBER_FORMAT
+
   @carriages = []
   # rubocop:disable all
   @@trains = {}
   # rubocop:enable all
   @number = 0
-  @carriages_block_arr = []
 
   def self.trains
     @@trains
@@ -32,7 +33,6 @@ class Train
   def initialize(number)
     @speed = 0
     @carriages = []
-    @carriages_block_arr = []
     @number = number
     validate!
     @@trains[number] = self
@@ -57,7 +57,6 @@ class Train
 
   def delete_carriage
     @carriages.pop if @speed.zero?
-    @carriages_block_arr.pop unless @carriages_block_arr.empty?
   end
 
   def all_carriages
@@ -105,11 +104,11 @@ class Train
     @route.stations(@current_number - 1)
   end
 
-  protected
-
-  def validate!
-    raise 'Wrong parameters for number of train' if @number !~ NUMBER_FORMAT
-
-    true
-  end
+  # protected
+  #
+  # def validate!
+  #   raise 'Wrong parameters for number of train' if @number !~ NUMBER_FORMAT
+  #
+  #   true
+  # end
 end
