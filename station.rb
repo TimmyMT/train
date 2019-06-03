@@ -10,7 +10,7 @@ class Station
 
   NAME_FORMAT = /^[a-zA-Z]{7}[0-9]$/i.freeze
 
-  attr_accessor :trains, :routes#, :trains_block_arr
+  attr_accessor :trains, :routes
   attr_reader :station
   my_accessor :trains
   strong_accessor :trains, String
@@ -25,7 +25,6 @@ class Station
   end
 
   def initialize(name)
-    # @trains_block_arr = []
     @station = name
     validate!
     @trains = []
