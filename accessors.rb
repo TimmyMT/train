@@ -9,7 +9,7 @@ module Accessors
 
       define_method("#{name}=".to_sym) do |val|
         history = instance_variable_get(line_history) || []
-        history.push(val)
+        history << val
         instance_variable_set(line_history, history)
         instance_variable_set(line, val)
       end
@@ -21,11 +21,11 @@ module Accessors
     end
   end
 
-  def strong_accessor(name, clas)
+  def strong_accessor(name, klass)
     define_method((name.to_s).to_sym) { instance_variable_get("@#{name}".to_sym) }
 
     define_method("#{name}=".to_sym) do |val|
-      if val.is_a? clas
+      if val.is_a? klass
         instance_variable_set("@#{name}".to_sym, val)
       else
         raise "wrong type"

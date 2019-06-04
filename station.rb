@@ -1,12 +1,14 @@
 require_relative './instance_counter.rb'
 # require_relative './valid.rb'
 require_relative './accessors.rb'
+require_relative './validation.rb'
 
 # user Stations
 class Station
   include InstanceCounter
   # include Valid
   extend Accessors
+  include Validation
 
   NAME_FORMAT = /^[a-zA-Z]{7}[0-9]$/i.freeze
 
@@ -25,8 +27,9 @@ class Station
   end
 
   def initialize(name)
+    validate_presence(name)
     @station = name
-    validate!
+    validate_format(name, NAME_FORMAT)
     @trains = []
     @@stations << self
     register_instance

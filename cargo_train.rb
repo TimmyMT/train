@@ -5,12 +5,11 @@ require_relative './cargo_carriage.rb'
 
 # This is a class Train for my stations.
 class CargoTrain < Train
-  attr_accessor :speed, :type, :carriages, :number, :carriages_block_arr
+  attr_accessor :speed, :type, :carriages, :number
 
   def initialize(number)
     @number = number
     @carriages = []
-    @carriages_block_arr = []
     @speed = 0
     @type = 0
     validate!

@@ -1,39 +1,46 @@
 module Validation
   def self.included(base)
     base.extend ClassMethods
+    base.send :include, InstanceMethods
   end
 
   module ClassMethods
-
-    def validate(name, type, val = nil)
-      define_method("validate_#{name}_#{type}") do
-        var = instance_variable_get("@#{name}".to_sym)
-
-        case type
-        when :presence
-          raise "#{name} nil" if var.nil? || var.strip.empty?
-        when :format
-          raise 'wrong format!' if var !~ val
-        when :type
-          raise 'wrong type!' unless var.is_a? val
-        end
-
-      end
-
-      define_method(:validate!) do
-        methods.each do |method|
-          send method if method.to_s.start_with?('validate_')
-        end
-      end
-
-      define_method(:valid?) do
-        validate!
-        true
-      rescue Error
-        false
-      end
+    attr_reader :validates
+    def validate(name, *args)
+      @validates ||= []
+      @validates << { name => args }
     end
-
   end
 
+  module InstanceMethods
+    def validate!
+      self.class.validates.each do |hh|
+        hh.each do |name, args|
+          val = instance_variable_get("@#{name}")
+          send "validate_#{args[0]}", val, *args[1]
+        end
+      end
+      true
+    end
+
+    def valid?
+      validate!
+    rescue RuntimeError
+      false
+    end
+
+    private
+
+    def validate_presence(val)
+      raise 'Value is nil' if val.nil? || val.empty?
+    end
+
+    def validate_type(val, type)
+      raise 'Invalid type' if val != type
+    end
+
+    def validate_format(val, format)
+      raise 'Wrong format' if val !~ format
+    end
+  end
 end
