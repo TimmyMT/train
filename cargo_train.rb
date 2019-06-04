@@ -12,7 +12,9 @@ class CargoTrain < Train
     @carriages = []
     @speed = 0
     @type = 0
-    validate!
+    validate_presence(number)
+    validate_type(@type, 0)
+    validate_format(number, NUMBER_FORMAT)
     puts "Train created #{@number}"
   end
 end
