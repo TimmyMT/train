@@ -14,6 +14,7 @@ class Train
   attr_reader :routes, :stations, :carriages
   attr_accessor :type, :speed, :number, :trains, :carriages_block_arr
 
+  validate :number, :presence
   validate :number, :format, NUMBER_FORMAT
 
   @carriages = []
